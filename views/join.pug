@@ -1,0 +1,49 @@
+extends layout
+
+block contentX
+
+    div.reg
+        span(style="float:left;") 회원가입
+        br
+        hr
+        br
+        form(method="POST", action="./handleRegi")
+            table.regtable
+                tr
+                    td 아이디
+                        span.regerr  *
+                    td
+                        input.reginput(type="text", name="id")
+                tr
+                    td 비밀번호
+                        span.regerr  *
+                    td
+                        input.reginput(type="password", name="password")
+                tr
+                    td 이메일
+                        span.regerr  *
+                    td
+                        input.reginput(type="text", name="email")
+                tr
+                    td 닉네임
+                        span.regerr  *
+                    td
+                        input.reginput(type="text", name="nickname")
+                tr
+                    td 즐겨듣는 장르
+                    td
+                        input.reginput(type="text", name="genre")
+                tr
+                    td 자기소개 한마디
+                    td
+                        input.reginput(type="text", name="intro")
+                tr
+                    td(colspan="2", style="text-align:center;")
+                        input(type="submit", name="submit", value="회원가입", style="width:200px; height:50px;")
+            
+            br
+            hr
+            span.regerr * 
+            span.regerr(style="color:black;") 표시가 된 곳은 필수 입력사항입니다.
+    
+    br

@@ -1,0 +1,49 @@
+doctype html
+html
+  head
+    title= title
+    meta(name='viewport', content='width=devide-width', initial-scale=1)
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script( src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' )
+    //- script( src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js')
+  body
+    div#topscroll
+      a(style="text-decoration:none; color:black; font-weight:bold;", href="#top") TOP
+
+    header
+      ul(style="float:right; list-style:none;")
+        li
+          a(href="/notice" class="link") 공지사항
+            - if ( user.id )
+              li
+                a(href="./logout", class="link") 로그아웃
+            - else
+              li
+                a(href="./loginpage", class="link") 로그인
+            //- - if ( user.id == "admin" )
+            //-     li
+            //-       a(href="./admin", class="link") 회원관리
+        
+      div(style="text-align:center; font-family:consolas;")
+        a(style="text-decoration:none; color:black;", href="/start") ELEVATOR
+
+    br
+
+    div#nav
+      nav
+        a(href="./start") HOME
+        a(href="./free") 자유게시판
+        a(href="./suggest") 건의게시판
+        a(href="./music") 음악게시판
+        a(href="./more") 부가기능
+    
+    div#content
+      br
+      block contentX
+    
+    hr
+    span(style="font-size:12px;") &nbsp; powered by 
+    b(style="font-size:12px;") Project Elevator
+    br
+    br

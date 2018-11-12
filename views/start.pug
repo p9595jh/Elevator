@@ -1,0 +1,68 @@
+extends layout
+
+block contentX
+
+    div(style="width:1000px; margin:auto;")
+        - if ( !user.nickname )
+            form.loginbox(method="POST", action="./login")
+                table(borde="0", style="border-collapse:collapse;")
+                    tr 
+                        td
+                            input(type="text", name="id", placeholder="아이디", style="width:120px; height:20px")
+                        td(rowspan="2")
+                            input(type="submit", name="submit", style="height:55px;", value="로그인")
+                    tr
+                        td
+                            input(type="password", name="password", placeholder="비밀번호", style="width:120px; height:20px;")
+                label
+                    span.link
+                        input(type="checkbox", onclick="Auto(this)", name="auto")
+                        span 자동로그인
+                br
+                a(href="./join", class="link") 회원가입 
+                a(href="./find", class="link") 아이디/비밀번호 찾기
+        - else
+            div.loginbox(style="text-align:center; font-size:13px;")
+                //- b #{req.session.nickname}
+                b= user.nickname 
+                span 님, 환영합니다
+                br
+                hr(style="color:blue;")
+                - if ( user.stop )
+                    b(style="color:red;") 정지회원
+                - else
+                    b 클린회원
+                br
+                a.link(href="javascript:;" onclick="info()") 나의 정보
+                br
+                a.link(href="./fix") 회원정보수정
+                span  | 
+                a.link(href="./logout") 로그아웃
+                br
+                hr(style="color:blue;")
+                span 가입일: #{user.date}
+
+        div.date
+            span some informations
+    br
+    
+    div.box
+        a.board(href="./free") ㆍ자유게시판
+        hr
+        div.startdiv Test
+    br
+    br
+
+    div.box
+        a.board(href="./suggest") ㆍ건의게시판
+        hr
+        div.startdiv Test2
+    br
+    br
+    
+    div.box
+        a.board(href="./music") ㆍ음악게시판
+        hr
+        div.startdiv Test2
+    br
+    br

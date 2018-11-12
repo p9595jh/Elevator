@@ -1,0 +1,30 @@
+extends layout
+
+block contentX
+
+    div.box
+        span= title
+        hr
+        br
+        br
+        
+        table.tb
+            tr(style="height:25px; font-weight:bold;")
+                td(style="70px;") 번호
+                td 제목
+                td(style="65px;") 작성자
+                td(style="140px;") 날짜
+                td(style="55px;") 조회수
+                td(style="40px;") 추천
+
+            each val in free
+                tr(class="trhover")
+                    td #{val.num}
+                    td #{val.title}
+                    td #{val.nickname}
+                    td #{val.date}
+                    td #{val.hit}
+                    td #{val.recommend}
+        br
+        br
+        button(style="float:right;") 글쓰기
