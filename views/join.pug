@@ -3,7 +3,8 @@ extends layout
 block contentX
 
     div.reg
-        span(style="float:left;") 회원가입
+        span(style="float:left;") 회원가입 
+            span.regerr= errmsg
         br
         hr
         br
@@ -13,7 +14,7 @@ block contentX
                     td 아이디
                         span.regerr  *
                     td
-                        input.reginput(type="text", name="id")
+                        input.reginput(type="text", name="id", value= past.id)
                 tr
                     td 비밀번호
                         span.regerr  *
@@ -23,20 +24,20 @@ block contentX
                     td 이메일
                         span.regerr  *
                     td
-                        input.reginput(type="text", name="email")
+                        input.reginput(type="text", name="email", value= past.email)
                 tr
                     td 닉네임
                         span.regerr  *
                     td
-                        input.reginput(type="text", name="nickname")
+                        input.reginput(type="text", name="nickname", value= past.nickname)
                 tr
                     td 즐겨듣는 장르
                     td
-                        input.reginput(type="text", name="genre")
+                        input.reginput(type="text", name="genre", value= past.genre)
                 tr
                     td 자기소개 한마디
                     td
-                        input.reginput(type="text", name="intro")
+                        input.reginput(type="text", name="intro", value= past.intro)
                 tr
                     td(colspan="2", style="text-align:center;")
                         input(type="submit", name="submit", value="회원가입", style="width:200px; height:50px;")

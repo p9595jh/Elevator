@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     nickname: String,
     genre: String,
     stop: Boolean,
-    date: String,
+    joindate: String,
     introduction: String
 })
 

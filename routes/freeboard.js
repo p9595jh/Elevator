@@ -6,7 +6,11 @@ const freeboardSchema = new mongoose.Schema({
     hit: Number,
     title: String,
     content: String,
-    recommend: Number
+    writedate: String,
+    recommend: Number,
+    recommendBy: Array,
+    comment: Array,
+    tag: String
 })
 
 module.exports = mongoose.model('free', freeboardSchema);

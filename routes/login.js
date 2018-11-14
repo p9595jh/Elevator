@@ -15,26 +15,19 @@ router.post('/', function(req, res) {
             return;
         }
         if ( users.length === 0 ) {
-            console.log("no result!!!!");
-            req.session.loginDone = false;
+            console.log("Failed to login");
             res.redirect('./start');
         }
         else {
-            console.log("yes result!!!!");
-            console.log(users);
-            console.log(users._id);
-
             req.session.userid = users.id;
             req.session.nickname = users.nickname;
+            req.session.stop = users.stop;
+            req.session.joindate = users.joindate;
+            console.log(users);
             res.render('./start', {
                 title: "Start",
-                // user: {
-                //     id: users.id,
-                //     nickname: users.nickname
-                // }
                 user: users
             });
-            // res.redirect('./start');
         }
     });
 });

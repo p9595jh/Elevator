@@ -7,6 +7,14 @@ router.get('/', function(req, res, next) {
     user: {
       id: req.session.userid,
       nickname: req.session.nickname
+    },
+    errmsg: '',
+    past: {
+      id: '',
+      email: '',
+      nickname: '',
+      genre: '',
+      intro: ''
     }
   });
 });

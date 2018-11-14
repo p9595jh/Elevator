@@ -1,0 +1,26 @@
+extends layout
+
+block contentX
+
+    div.box
+        //- content
+        span(style="font-size:20px;") #{conetent.title}
+        span(style="float:right;")
+            a(href="javascript:;" class="tblink") #{user.nickname}
+        span(style="float:right; font-size:13px;") #{content.writedate}
+        br
+        span(style="float:right; font-size:13px;") 조회 #{content.hit}  댓글 -1
+        br
+        br
+
+        div(style="padding:20px;") #{content.content}
+        br
+        br
+        br
+        div(style="text-align:center;")
+            button= '추천' + content.recommend
+        br
+        hr
+
+        //- comment and buttons that can work to remove, get back to list
+        //- show board list

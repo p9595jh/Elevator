@@ -14,6 +14,8 @@ var loginRouter = require('./routes/login');
 var logoutRouter = require('./routes/logout');
 var freeRouter = require('./routes/free');
 var loginpageRouter = require('./routes/loginpage');
+var writeRouter = require('./routes/write');
+var handleWriteRouter = require('./routes/handleWrite');
 
 var app = express();
 
@@ -28,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   key: 'sid',
-  secret: 'secret',
+  secret: '0123456789abcdefghijklmnopqrstuvwxyz!@#$%',
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -45,6 +47,8 @@ app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/free', freeRouter);
 app.use('/loginpage', loginpageRouter);
+app.use('/write', writeRouter);
+app.use('/handleWrite', handleWriteRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

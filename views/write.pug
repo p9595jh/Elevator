@@ -1,0 +1,22 @@
+extends layout
+
+block contentX
+
+    div.box
+        span 글 작성
+        hr
+        br
+        form(method="POST", action="./handleWrite")
+            table(style="margin:auto; width:700px; text-align:center;")
+                tr
+                    td(style="height:50px;")
+                        input(type="text", placeholder="제목", name="title", style="width:600px; height:30px;")
+                tr
+                    td
+                        textarea(cols="90", rows="30", name="content")
+                tr
+                    td(style="height:50px;")
+                        input(type="text", name="tag", placeholder="html 태그를 입력해주세요", style="width:500px;")
+                        br
+                        input(type="submit", name="submit", value="작성", style="float:right;")
+                        input(type="hidden", name="boardtype", value= type)

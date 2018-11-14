@@ -4,14 +4,11 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('start', {
     title: 'Start',
-    // loginDone: req.session.userid,
-    // loginDone: false,
-    // nickname: "NiCKTeST"
-    // nickname: req.session.nickname
-
     user: {
       id: req.session.userid,
-      nickname: req.session.nickname
+      nickname: req.session.nickname,
+      stop: req.session.stop,
+      joindate: req.session.joindate
     }
   });
 });
