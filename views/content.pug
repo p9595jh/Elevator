@@ -4,23 +4,73 @@ block contentX
 
     div.box
         //- content
-        span(style="font-size:20px;") #{conetent.title}
+        span(style="font-size:20px;") #{content.title}
         span(style="float:right;")
             a(href="javascript:;" class="tblink") #{user.nickname}
+        hr
         span(style="float:right; font-size:13px;") #{content.writedate}
         br
-        span(style="float:right; font-size:13px;") 조회 #{content.hit}  댓글 -1
+        span(style="float:right; font-size:13px;") 조회 #{content.hit}  댓글 #{content.comment.length}
         br
         br
 
-        div(style="padding:20px;") #{content.content}
+        div(style="padding:20px;")
+            pre.contentView #{content.content}
         br
         br
         br
         div(style="text-align:center;")
-            button= '추천' + content.recommend
+            button= '추천 ' + content.recommend
         br
         hr
 
-        //- comment and buttons that can work to remove, get back to list
+        //- comments and buttons
+        table.tb2
+            each val in content.comment
+                tr(style="height:110px; vertical-align:top;")
+                    td(style="text-align:center; vertical-align:middle; width:110px; border-right:1px solid rgb(0,91,159);")
+                        span image will be shown here
+                    td
+                        div(style="font-size:12px; padding:2px; margin-left:5px; border-bottom:1px dotted rgb(0,91,159);")
+                            a.tblink(href="javascript:;") #{user.nickname}
+                            - if ( user.stop )
+                                b(style="color:red;") 정지회원
+                            span(style="font-size:12px; float:right;")
+                                - if ( user.id == val.id || user.id == 'admin' )
+                                    a.link(href="javascript:;") 삭제  
+                                #{val.writedate}
+                        div(style="padding:10px;")
+                            - if ( user.id == val.id )
+                                span(style="color:blue;") #{val.content}
+                            - else
+                                #{val.content}
+                    td(style="text-align:right;")
+
+        br
+        - if ( user.id )
+            br
+            form(method="POST", action="./comment")
+                table(style="width:700px; margin:auto;")
+                    tr
+                        td
+                            textarea(cols="80", rows="5", name="comment")
+                        td
+                            input(type="submit", name="cmt", value="댓글달기", style="width:100px; height:80px;")
+            br
+            hr
+        - else
+            hr
+        
+        - if ( user.id == content.id || user.id == 'admin' )
+            button(style="float:right;") 삭제
+        button(style="float:right;" onclick="location.href=" + listurl) 목록
+    br
+    br
+
+    div.box
         //- show board list
+        span #{type}
+        hr
+        br
+        br
+        span contents of #{type} should be seen on here

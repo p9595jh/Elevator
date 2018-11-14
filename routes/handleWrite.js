@@ -16,7 +16,7 @@ router.post('/', function(req, res) {
         }
 
         var free = new FreeBoard();
-        free.id = req.session.id;
+        free.id = req.session.userid;
         free.nickname = req.session.nickname;
         free.title = req.body.title;
         free.content = req.body.content;

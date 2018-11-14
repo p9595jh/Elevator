@@ -14,9 +14,13 @@ router.post('/', function(req, res) {
             res.status(500).send({ error: 'database failure' });
             return;
         }
-        if ( users.length === 0 ) {
-            console.log("Failed to login");
-            res.redirect('./start');
+        if ( users == null ) {
+            console.log("Failed to login (null)");
+            res.redirect('./loginpage');
+        }
+        else if ( users.length === 0 ) {
+            console.log("Failed to login (length == 0)");
+            res.redirect('./loginpage');
         }
         else {
             req.session.userid = users.id;
