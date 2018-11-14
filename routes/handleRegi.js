@@ -9,6 +9,12 @@ mongoose.connect('mongodb://localhost:27017/elevator');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.post('/', function(req, res) {
     User.find({id: req.body.id}, function(err, users) {
+        if ( err ) {
+            console.log("Error in handleRegi!!!!");
+            res.status(500).send({ error: 'database failure' });
+            return;
+        }
+
         var user = new User();
         user.id = req.body.id;
         user.pw = req.body.password;
@@ -19,12 +25,7 @@ router.post('/', function(req, res) {
         user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         user.introduction = req.body.intro;
         user.stop = false;
-
-        if ( err ) {
-            console.log("Error in handleRegi!!!!");
-            res.status(500).send({ error: 'database failure' });
-            return;
-        }
+        
         if ( users.length !== 0 ) {
             res.render('./join', {
                 title: '회원가입',

@@ -16,6 +16,7 @@ var freeRouter = require('./routes/free');
 var loginpageRouter = require('./routes/loginpage');
 var writeRouter = require('./routes/write');
 var handleWriteRouter = require('./routes/handleWrite');
+var contentRouter = require('./routes/content');
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use('/free', freeRouter);
 app.use('/loginpage', loginpageRouter);
 app.use('/write', writeRouter);
 app.use('/handleWrite', handleWriteRouter);
+app.use('/content', contentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
