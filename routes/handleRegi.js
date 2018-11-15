@@ -25,6 +25,7 @@ router.post('/', function(req, res) {
         user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         user.introduction = req.body.intro;
         user.stop = false;
+        user.image = '';
         
         if ( users.length !== 0 ) {
             res.render('./join', {

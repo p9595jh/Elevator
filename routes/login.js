@@ -27,7 +27,6 @@ router.post('/', function(req, res) {
             req.session.nickname = users.nickname;
             req.session.stop = users.stop;
             req.session.joindate = users.joindate;
-            console.log(users);
             res.render('./start', {
                 title: "Start",
                 user: users

@@ -1,0 +1,47 @@
+extends layout
+
+block contentX
+
+    div.reg
+        span(style="float:left;") 회원정보수정 
+            span.regerr  #{errmsg}
+        br
+        hr
+        br
+        form(method="POST", action="./handleFix", enctype="multipart/form-data")
+            table.regtable(style="height:600px;")
+                tr
+                    td 기존 비밀번호
+                        span.regerr *
+                    td
+                        input.reginput(type="password", name="password")
+                tr
+                    td 새 비밀번호
+                        span.regerr *
+                    td
+                        input.reginput(type="password", name="passwordNew")
+                tr
+                    td 닉네임
+                        span.regerr *
+                    td
+                        input.reginput(type="text", name="nickname", value= user.nickname)
+                tr
+                    td 좋아하는 장르
+                    td
+                        input.reginput(type="text", name="genre", value= user.genre)
+                tr
+                    td 한줄 자기소개
+                    td
+                        input.reginput(type="text", name="intro", value= user.introduction)
+                tr
+                    td 프로필 이미지
+                    td
+                        input(type="file", name="image")
+                tr
+                    td(colspan="2", style="text-align:center;")
+                        input(type="submit", name="submit", value="수정", style="width:200px; height:50px;")
+        br
+        hr
+        span.regerr * 
+        span 표시가 된 곳은 필수 입력사항입니다
+        button(onclick="", style="float:right;") 회원탈퇴
