@@ -6,7 +6,7 @@ block contentX
         //- content
         span(style="font-size:20px;") #{content.title}
         span(style="float:right;")
-            a(href="javascript:;" class="tblink") #{user.nickname}
+            a.tblink(href="javascript:;", onclick="info('" + content.id + "')") #{content.nickname}
         hr
         span(style="float:right; font-size:13px;") #{content.writedate}
         br
@@ -26,30 +26,31 @@ block contentX
 
         //- comments and buttons
         table.tb2
+            br
             each val in content.comment
                 tr(style="height:110px; vertical-align:top;")
                     td(style="text-align:center; vertical-align:middle; width:110px; border-right:1px solid rgb(0,91,159);")
-                        span image will be shown here
+                        img(src="images/profileimages/" + val.id + ".jpg", width="70", height="70")
                     td
                         div(style="font-size:12px; padding:2px; margin-left:5px; border-bottom:1px dotted rgb(0,91,159);")
-                            a.tblink(href="javascript:;") #{user.nickname}
-                            - if ( user.stop )
-                                b(style="color:red;") 정지회원
+                            a.tblink(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                             span(style="font-size:12px; float:right;")
                                 - if ( user.id == val.id || user.id == 'admin' )
                                     a.link(href="javascript:;") 삭제  
-                                #{val.writedate}
+                                span #{val.writedate}
                         div(style="padding:10px;")
-                            - if ( user.id == val.id )
-                                span(style="color:blue;") #{val.content}
+                            - if ( content.id == val.id )
+                                span(style="color:blue;") #{val.comment}
                             - else
-                                #{val.content}
+                                span #{val.comment}
                     td(style="text-align:right;")
 
         br
         - if ( user.id )
             br
             form(method="POST", action="./comment")
+                input(type="hidden", name="board", value= listurl)
+                input(type="hidden", name="_id", value= content._id)
                 table(style="width:700px; margin:auto;")
                     tr
                         td
@@ -63,7 +64,7 @@ block contentX
         
         - if ( user.id == content.id || user.id == 'admin' )
             button(style="float:right;") 삭제
-        button(style="float:right;" onclick="location.href=" + listurl) 목록
+        button(style="float:right;" onclick="location.href='./" + listurl + "'") 목록
     br
     br
 
@@ -73,4 +74,22 @@ block contentX
         hr
         br
         br
-        span contents of #{type} should be seen on here
+        table.tb
+            tr(style="height:25px; font-weight:bold;")
+                td(style="70px;") 번호
+                td(style="160px;") 제목
+                td(style="65px;") 작성자
+                td(style="100px;") 날짜
+                td(style="55px;") 조회수
+                td(style="40px;") 추천
+
+            each val in all
+                tr(class="trhover")
+                    td #{val.num}
+                    td
+                        a.link(href="./content?type=free&num=" + val.num) #{val.title}
+                    td
+                        a.link(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
+                    td #{val.writedate}
+                    td #{val.hit}
+                    td #{val.recommend}

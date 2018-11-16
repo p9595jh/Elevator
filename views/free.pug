@@ -22,7 +22,8 @@ block contentX
                     td #{val.num}
                     td
                         a.link(href="./content?type=free&num=" + val.num) #{val.title}
-                    td #{val.nickname}
+                    td
+                        a.link(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                     td #{val.writedate}
                     td #{val.hit}
                     td #{val.recommend}

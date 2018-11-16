@@ -23,9 +23,8 @@ block contentX
                 a(href="./find", class="link") 아이디/비밀번호 찾기
         - else
             div.loginbox(style="text-align:center; font-size:13px;")
-                //- b #{req.session.nickname}
                 b= user.nickname 
-                span 님, 환영합니다
+                span 님, 반갑습니다
                 br
                 hr(style="color:blue;")
                 - if ( user.stop )
@@ -33,7 +32,7 @@ block contentX
                 - else
                     b 클린회원
                 br
-                a.link(href="javascript:;" onclick="info()") 나의 정보
+                a.link(href="javascript:;" onclick="info('" + user.id + "')") 나의 정보
                 br
                 a.link(href="./fix") 회원정보수정
                 span  | 
@@ -50,6 +49,9 @@ block contentX
         a.board(href="./free") ㆍ자유게시판
         hr
         div.startdiv Test
+            //- each val in free
+            //-     span #{val.title}
+            //-     br
     br
     br
 

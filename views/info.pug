@@ -1,0 +1,31 @@
+doctype html
+head
+    title= title
+    meta(name='viewport', content='width=devide-width', initial-scale=1)
+    link(rel='stylesheet', href='/stylesheets/info.css')
+body
+    div#content
+        br
+        span(style="font-size:20px;")
+            b= user.id
+            span 님의 정보
+            - if ( user.stop )
+                b(style="color:red;") 정지회원
+            span(style="float:right;")
+                img(src= user.image, width="70", height="70")
+            hr
+            br
+
+            p 닉네임 : #{user.nickname}
+            p 이메일 : #{user.email}
+            p 좋아하는 장르 : #{user.genre}
+            p 자기소개 : #{user.introduction}
+            p 가입일 : #{user.joindate}
+            br
+            p other informations will be shown in here
+            
+            br
+            br
+            button(onclick="window.open('about:blank', '_self').close()") 닫기
+            br
+            br

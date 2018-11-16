@@ -1,0 +1,38 @@
+body {
+	background-color: rgb(247,250,255);
+	font-family: consolas;
+}
+
+#content {
+	width: 95%;
+	margin: auto;
+}
+
+p {
+	font-size: 16px;
+}
+
+hr {
+	border: 1px solid rgb(0,91,159);
+}
+
+.tb {
+	width: 400px;
+	border-collapse: collapse;
+	margin: auto;
+}
+
+.tb tr {
+	border-top: 1px solid rgb(0,91,159);
+	border-bottom: 1px solid rgb(0,91,159);
+	height: 30px;
+}
+
+.tblink {
+	color: black;
+	text-decoration: none;
+}
+
+button {
+	cursor: pointer;
+}
