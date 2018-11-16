@@ -29,6 +29,8 @@ block contentX
                 hr(style="color:blue;")
                 - if ( user.stop )
                     b(style="color:red;") 정지회원
+                - else if ( user.id == 'admin' )
+                    b 사이트 어드민
                 - else
                     b 클린회원
                 br

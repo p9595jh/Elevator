@@ -30,10 +30,14 @@ block contentX
             each val in content.comment
                 tr(style="height:110px; vertical-align:top;")
                     td(style="text-align:center; vertical-align:middle; width:110px; border-right:1px solid rgb(0,91,159);")
-                        img(src="images/profileimages/" + val.id + ".jpg", width="70", height="70")
+                        img(src="images/profileimages/" + val.id, width="70", height="70")
                     td
                         div(style="font-size:12px; padding:2px; margin-left:5px; border-bottom:1px dotted rgb(0,91,159);")
-                            a.tblink(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
+                            - if ( val.id == 'admin' )
+                                b
+                                    a.tblink(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
+                            - else
+                                a.tblink(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                             span(style="font-size:12px; float:right;")
                                 - if ( user.id == val.id || user.id == 'admin' )
                                     a.link(href="javascript:;") 삭제  

@@ -21,6 +21,8 @@ var fixRouter = require('./routes/fix');
 var handleFixRouter = require('./routes/handleFix');
 var infoRouter = require('./routes/info');
 var commentRouter = require('./routes/comment');
+var suggestRouter = require('./routes/suggest');
+var handleSuggestRouter = require('./routes/handleSuggest');
 
 var app = express();
 
@@ -59,6 +61,8 @@ app.use('/fix', fixRouter);
 app.use('/handleFix', handleFixRouter);
 app.use('/info', infoRouter);
 app.use('/comment', commentRouter);
+app.use('/suggest', suggestRouter);
+app.use('/handleSuggest', handleSuggestRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

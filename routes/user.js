@@ -7,8 +7,7 @@ const userSchema = new mongoose.Schema({
     genre: String,
     stop: Boolean,
     joindate: String,
-    introduction: String,
-    image: String
+    introduction: String
 })
 
 module.exports = mongoose.model('user', userSchema);

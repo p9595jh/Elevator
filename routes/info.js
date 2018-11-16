@@ -12,7 +12,6 @@ router.get('/', function(req, res) {
             res.status(500).send({ error: 'database failure' });
             return;
         }
-        if ( users.image == '' ) users.image = "images/noimage.jpg";
         res.render('info', {
             title: users.id,
             user: users

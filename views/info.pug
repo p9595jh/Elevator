@@ -8,19 +8,22 @@ body
         br
         span(style="font-size:20px;")
             b= user.id
-            span 님의 정보
-            - if ( user.stop )
-                b(style="color:red;") 정지회원
+            span 님의 정보 
             span(style="float:right;")
-                img(src= user.image, width="70", height="70")
+                img(src="images/profileimages/" + user.id, width="70", height="70")
             hr
+            - if ( user.stop )
+                b(style="color:red;")  정지회원
+            - else if ( user.id == 'admin' )
+                b  사이트 어드민
+                br
             br
 
-            p 닉네임 : #{user.nickname}
-            p 이메일 : #{user.email}
-            p 좋아하는 장르 : #{user.genre}
-            p 자기소개 : #{user.introduction}
-            p 가입일 : #{user.joindate}
+            p 닉네임: #{user.nickname}
+            p 이메일: #{user.email}
+            p 좋아하는 장르: #{user.genre}
+            p 자기소개: #{user.introduction}
+            p 가입일: #{user.joindate}
             br
             p other informations will be shown in here
             

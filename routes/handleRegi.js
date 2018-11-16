@@ -25,7 +25,6 @@ router.post('/', function(req, res) {
         user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         user.introduction = req.body.intro.trim();
         user.stop = false;
-        user.image = 'images/profileimages/' + user.id + '.jpg';
         
         if ( users.length !== 0 ) {
             res.render('./join', {
@@ -52,7 +51,7 @@ router.post('/', function(req, res) {
             }
             else {
                 var fs = require('fs-extra');
-                fs.copy('public/images/noimage.jpg', 'public/images/profileimages/' + user.id + '.jpg', function(err0) {
+                fs.copy('public/images/noimage.jpg', 'public/images/profileimages/' + user.id, function(err0) {
                     if ( err0 ) console.err(err0);
                 });
                 user.save(function(err) {
