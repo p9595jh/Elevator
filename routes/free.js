@@ -21,4 +21,11 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/get-data', function(req, res) {
+    Freeboard.find().sort({num:-1}).exec(function(err, frees) {
+        if (err) return res.status(500).send({error: 'database failure'});
+        res.send(frees);
+    });
+})
+
 module.exports = router;

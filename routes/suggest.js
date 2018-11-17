@@ -24,4 +24,11 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/get-data', function(req, res) {
+    Suggest.find().sort({num:-1}).exec(function(err, suggests) {
+        if (err) return res.status(500).send({error: 'database failure'});
+        res.send(suggests);
+    })
+});
+
 module.exports = router;

@@ -34,5 +34,14 @@ router.post('/', function(req, res) {
         }
     });
 });
+router.post('/insert', function(req, res) {
+    User.findOne({id: req.body.id, pw: req.body.pw}, function(err, users) {
+        if (err) {
+            res.json({id: -1});
+            return;
+        }
+        res.send(users);
+    });
+});
 
 module.exports = router;
