@@ -28,7 +28,8 @@ router.post('/', function(req, res) {
         free.writedate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         free.hit = 0;
         free.recommend = 0;
-        free.num = frees[0].num + 1;
+        if ( frees.length == 0 ) free.num = 0;
+        else free.num = frees[0].num + 1;
 
         free.save(function(err) {
             if ( err ) {
