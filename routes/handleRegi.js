@@ -69,5 +69,43 @@ router.post('/', function(req, res) {
         }
     });
 });
+router.post('/insert', function(req, res) {
+    User.find({id: req.body.id}, function(err, users) {
+        if ( err ) {
+            console.log("Error in handleRegi!!!!");
+            res.json({id: ""});
+            return;
+        }
+
+        var user = new User();
+        user.id = req.body.id.trim();
+        user.pw = req.body.password.trim();
+        user.email = req.body.email.trim();
+        user.nickname = req.body.nickname.trim();
+        user.genre = req.body.genre.trim();
+        var date = new Date();
+        user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+        user.introduction = req.body.intro.trim();
+        user.stop = false;
+        
+        if ( users.length !== 0 ) {
+            console.log("duplicated");
+            res.json({id: ""});
+            return;
+        }
+        var fs = require('fs-extra');
+        fs.copy('public/images/noimage.jpg', 'public/images/profileimages/' + user.id, function(err0) {
+            if ( err0 ) console.err(err0);
+        });
+        user.save(function(err) {
+            if ( err ) {
+                console.log("Error in handleRegi!!!!");
+                res.json({id: ""});
+                return;
+            }
+            res.send("Inserted value successfully - '" + user.id + "'");
+        });
+    });
+});
 
 module.exports = router;

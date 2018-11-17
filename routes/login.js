@@ -34,10 +34,10 @@ router.post('/', function(req, res) {
         }
     });
 });
-router.post('/insert', function(req, res) {
+router.post('/checklogin', function(req, res) {
     User.findOne({id: req.body.id, pw: req.body.pw}, function(err, users) {
         if (err) {
-            res.json({id: -1});
+            res.json({id: ""});
             return;
         }
         res.send(users);
