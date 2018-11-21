@@ -6,11 +6,11 @@ var Freeboard = require('./freeboard.js');
 mongoose.connect('mongodb://localhost:27017/elevator');
 
 router.get('/', function(req, res, next) {
-  var free;
-  Freeboard.find().sort({num:-1}).exec(function(err, frees) {
-    free = frees;
-  });
-  console.log(free);
+  // var free;
+  // Freeboard.find().sort({num:-1}).exec(function(err, frees) {
+  //   free = frees;
+  // });
+  // console.log(free);
 
 
   res.render('start', {
@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
       stop: req.session.stop,
       joindate: req.session.joindate
     },
-    free: free
+    // free: free
   });
 });
 

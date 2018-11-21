@@ -11,6 +11,9 @@ block contentX
         span(style="float:right; font-size:13px;") #{content.writedate}
         br
         span(style="float:right; font-size:13px;") 조회 #{content.hit}  댓글 #{content.comment.length}
+        - if ( listurl == "music" )
+            br
+            span(style="float:right; font-size:13px;") 평점 #{content.grade} by #{content.gradeby.length}명
         br
         br
 
@@ -20,7 +23,21 @@ block contentX
         br
         br
         div(style="text-align:center;")
-            button= '추천 ' + content.recommend
+            - if ( listurl == "free" )
+                button= '추천 ' + content.recommend
+            - else if ( listurl == "music" && user.id )
+                select
+                    option(value="10") ★★★★★
+                    option(value="9") ★★★★☆
+                    option(value="8") ★★★★
+                    option(value="7") ★★★☆
+                    option(value="6") ★★★
+                    option(value="5") ★★☆
+                    option(value="4") ★★
+                    option(value="3") ★☆
+                    option(value="2") ★
+                    option(value="1") ☆
+                button= '평가'
         br
         hr
 
@@ -40,7 +57,11 @@ block contentX
                                 a.tblink(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                             span(style="font-size:12px; float:right;")
                                 - if ( user.id == val.id || user.id == 'admin' )
-                                    a.link(href="javascript:;") 삭제  
+                                    form(action="./delete/freecomment", id="removeCmt" + val.num, method="POST", style="display:none;")
+                                        input(type="hidden", name="contentnum", value= content.num)
+                                        input(type="hidden", name="num", value= val.num)
+                                        input(type="hidden", name="id", value= val.id)
+                                    a.link(href="javascript:;", onclick="document.getElementById('removeCmt" + val.num + "').submit()") 삭제  
                                 span #{val.writedate}
                         div(style="padding:10px;")
                             - if ( content.id == val.id )
@@ -67,7 +88,10 @@ block contentX
             hr
         
         - if ( user.id == content.id || user.id == 'admin' )
-            button(style="float:right;") 삭제
+            form(action="./delete/free", method="POST", onsubmit="return confirmRemove();")
+                input(type="submit", value="삭제", style="float:right;")
+                input(type="hidden", value= content.id, name="id")
+                input(type="hidden", value= content.num, name="num")
         button(style="float:right;" onclick="location.href='./" + listurl + "'") 목록
     br
     br

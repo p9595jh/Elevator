@@ -15,13 +15,13 @@ block contentX
                 td(style="65px;") 작성자
                 td(style="100px;") 날짜
                 td(style="55px;") 조회수
-                td(style="40px;") 추천
+                td(style="40px;") 전체평점
 
-            each val in free
+            each val in music
                 tr(class="trhover")
                     td #{val.num}
                     td
-                        a.link(href="./content?type=free&num=" + val.num) #{val.title}
+                        a.link(href="./content?type=music&num=" + val.num) #{val.title}
                         - if ( val.comment.length > 0 )
                             span   
                             span(style="font-size:12px; color:grey;") [#{val.comment.length}]
@@ -29,10 +29,10 @@ block contentX
                         a.link(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                     td #{val.writedate}
                     td #{val.hit}
-                    td #{val.recommend}
+                    td #{val.grade}
         br
         br
         - if ( user.id )
             form(method="POST", action="./write")
                 input(type="submit", name="submit", value="글쓰기", style="float:right;")
-                input(type="hidden", name="type", value="free")
+                input(type="hidden", name="type", value="music")
