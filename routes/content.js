@@ -41,6 +41,7 @@ router.get('/', function(req, res, next) {
                     content: frees,
                     type: '자유게시판',
                     listurl: 'free',
+                    boardtype: 'free',
                     all: all    // board that on below
                 });
             });
@@ -75,6 +76,7 @@ router.get('/', function(req, res, next) {
                         content: musics,
                         type: '음악게시판',
                         listurl: 'music',
+                        boardtype: 'music',
                         all: all,
                         writer: output1
                     });
@@ -94,13 +96,11 @@ router.get('/', function(req, res, next) {
             if ( req.session.userid != subs.id ) {
                 var s = require('./subcontents.js');
                 var hit = subs.hit + 1;
-                s.updateOne({num: number}, {hit: hit}, function(err1, output) {
-                    // updating hits
-                });
+                s.updateOne({num: number}, {hit: hit}, function(err1, output) {});
                 subs.hit = hit;
             }
             var Sc = require('./subcontents.js');
-            Sc.find().sort({num:-1}).exec(function(err, all) {
+            Sc.find({type: subs.type}).sort({num:-1}).exec(function(err, all) {
                 res.render('content', {
                     title: subs.title + ' - 서브게시판',
                     free: subs,
@@ -112,7 +112,8 @@ router.get('/', function(req, res, next) {
                     },
                     content: subs,
                     type: type + ' - 서브게시판',
-                    listurl: type,
+                    listurl: 'subboard',
+                    boardtype: type,
                     all: all    // board that on below
                 });
             });

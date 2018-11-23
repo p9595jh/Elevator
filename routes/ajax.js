@@ -44,6 +44,24 @@ router.post('/', function(req, res) {
             res.json(responseData);
         })
     }
+    else {
+        var SubContent = require('./subcontents.js');
+        SubContent.findOne({_id: req.body._id}, function(err, output) {
+            var recommend = output.recommend;
+            for (var i=0; i<output.recommendBy.length; i++) {
+                if ( output.recommendBy[i] == req.body.id ) {
+                    var responseData = { "recommend" : recommend };
+                    res.json(responseData);
+                    return;
+                }
+            }
+            recommend++;
+            SubContent.updateOne({_id: req.body._id}, {recommend: recommend}, function(err1, output1) {});
+            SubContent.updateOne({_id: req.body._id}, {$push: {recommendBy: req.body.id}}, function(err1, output1) {});
+            var responseData = { "recommend" : recommend };
+            res.json(responseData);
+        });
+    }
 });
 router.post('/boardrequest', function(req, res) {
     var User = require('./user.js');
@@ -61,11 +79,34 @@ router.post('/acceptboardrequest', function(req, res) {
     var sub = new Sub();
     sub.id = req.body.userid;
     sub.subscribes = new Array();
-    sub.subscribes[0] = sub.id;
+    sub.subscribes[0] = 'admin';
+    sub.subscribes[1] = sub.id;
     sub.stops = new Array();
     sub.save(function(err) {
         if ( err ) console.log("Error while creating sub board");
         User.updateOne({id: sub.id}, {$push: {subscribes: sub.id}}, function(err1, output1) {});
+        User.updateOne({id: 'admin'}, {$push: {subscribes: sub.id}}, function(err1, output1) {});
+    });
+});
+router.post('/subscribeboard', function(req, res) {
+    var userid = req.body.userid;
+    var subid = req.body.subid;
+
+    var User = require('./user.js');
+    User.findOne({id: userid}, function(err, output) {
+        for (var i=0; i<output.subscribes.length; i++) {
+            if ( output.subscribes[i] == subid ) {
+                var responseData = { "message" : "duplicated" };
+                res.json(responseData);
+                return;
+            }
+        }
+
+        User.updateOne({id: userid}, {$push: {subscribes: subid}}, function(err1, output1) {});
+        var Sub = require('./sub.js');
+        Sub.updateOne({id: subid}, {$push: {subscribes: userid}}, function(err1, output1) {});
+        var responseData = { "message" : "done" };
+        res.json(responseData);
     });
 });
 

@@ -10,7 +10,7 @@ router.post('/free', function(req, res, next) {
     var FreeBoard = require('./freeboard.js');
     var id = req.body.id;
     var num = req.body.num;
-    FreeBoard.remove({num: num, id: id}, function(err, output) {
+    FreeBoard.deleteOne({num: num, id: id}, function(err, output) {
         if (err) res.status(500).json({ error: 'database failure' });
         res.redirect('../free');
     })
@@ -20,11 +20,21 @@ router.post('/music', function(req, res, next) {
     var MusicClass = require('./musicclass.js');
     var id = req.body.id;
     var num = req.body.num;
-    MusicClass.remove({num: num, id: id}, function(err, output) {
+    MusicClass.deleteOne({num: num, id: id}, function(err, output) {
         if (err) res.status(500).json({ error: 'database failure' });
         res.redirect('../music');
-    })
+    });
 });
+
+router.post('/subboard', function(req, res, next) {
+    var SubContent = require('./subcontents.js');
+    var id = req.body.id;
+    var num = req.body.num;
+    SubContent.deleteOne({num: num, id: id}, function(err, output) {
+        if (err) res.status(500).json({ error: 'database failure' });
+        res.redirect('../subboard?type=' + req.body.boardtype);
+    });
+})
 
 router.post('/freecomment', function(req, res, next) {
     var id = req.body.id;

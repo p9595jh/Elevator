@@ -45,9 +45,7 @@ block contentX
         br
         br
         div(style="text-align:center;")
-            - if ( listurl == "free" )
-                button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 추천 #{content.recommend}
-            - else if ( listurl == "music" && user.id )
+            - if ( listurl == "music" && user.id )
                 select#grade
                     option(value="10") ★★★★★
                     option(value="9") ★★★★☆
@@ -60,6 +58,8 @@ block contentX
                     option(value="2") ★
                     option(value="1") ☆
                 button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 평가
+            - else
+                button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 추천 #{content.recommend}
         br
         hr
 
@@ -114,7 +114,8 @@ block contentX
                 input(type="submit", value="삭제", style="float:right;")
                 input(type="hidden", value= content.id, name="id")
                 input(type="hidden", value= content.num, name="num")
-        button(style="float:right;" onclick="location.href='./" + listurl + "'") 목록
+                input(type="hidden", value= boardtype, name="boardtype")
+        button(style="float:right;" onclick="location.href='./" + listurl + "?type=" + boardtype + "'") 목록
     br
     br
 
@@ -140,7 +141,7 @@ block contentX
                         - if ( val.boardRequest )
                             a.link(style="font-weight:bold;", href="./content?type="+listurl+"&num=" + val.num) #{val.title}
                         - else
-                            a.link(href="./content?type="+listurl+"&num=" + val.num) #{val.title}
+                            a.link(href="./content?type="+boardtype+"&num=" + val.num) #{val.title}
                         - if ( val.comment.length > 0 )
                             span   
                             span(style="font-size:12px; color:grey;") [#{val.comment.length}]

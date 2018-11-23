@@ -24,9 +24,11 @@ block contentX
             - if ( user.id )
                 each val in sub
                     li
-                        a.link(style="font-size:16px;", href="javascript:;", onclick="alert('가입하시겠습니까?');") #{val.id}
+                        a.link(style="font-size:16px;", href="javascript:;", onclick="subscribeBoard('"+user.id+"','"+val.id+"')") #{val.id}
+                        span(style="font-size:12px; color:grey;")  [#{val.subscribes.length-1}]
             - else
                 each val in sub
                     li #{val.id}
+                        span(style="font-size:12px; color:grey;")  [#{val.subscribes.length-1}]
         br
         br

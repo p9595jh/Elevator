@@ -24,6 +24,11 @@ body
             p 좋아하는 장르: #{user.genre}
             p 자기소개: #{user.introduction}
             p 가입일: #{user.joindate}
+            //- br
+            p 구독 중인 게시판:
+            each val in user.subscribes
+                span(style='font-size:14px;') ㆍ#{val} 
+            br
             br
             p other informations will be shown in here
             
