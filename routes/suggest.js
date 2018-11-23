@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
             res.status(500).send({ error: 'database failure' });
             return;
         }
-        console.log(suggests);
         res.render('suggest', {
             title: '건의사항',
             user: {

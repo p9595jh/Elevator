@@ -13,9 +13,31 @@ block contentX
         span(style="float:right; font-size:13px;") 조회 #{content.hit}  댓글 #{content.comment.length}
         - if ( listurl == "music" )
             br
-            span(style="float:right; font-size:13px;") 평점 #{content.grade} by #{content.gradeby.length}명
+            span#gradeSpan(style="float:right; font-size:13px;") 평점 #{content.grade} by #{content.gradeby.length}명
+            - if ( content.grade >= 5 && content.gradeby.length >= 1 && user.id == content.id && content.boardRequest == 0 )
+                //- content.grade / content.gradeby.length == average
+                //- if content.boardRequest == 0, can request to admin to make own board
+                //- after requested, content.boardRequest would be 1
+                //- when admin accept the request, content.boardRequest would be 2 and having own board
+                br
+                button#boardRequest(style='float:right;', onclick="boardRequest('"+content._id+"')") 게시판 생성 요청
+            - else if ( user.id == 'admin' && content.boardRequest == 1 )
+                br
+                button(style='float:right;') 게시판 생성 수락
         br
         br
+
+        - if ( content.image != '' )
+            div(style="text-align:center;")
+                img(src= content.image, width="600")
+            br
+            br
+        - if ( content.audio != '' )
+            div(style="text-align:center;")
+                audio(controls)
+                    source(src= content.audio)
+            br
+            br
 
         div(style="padding:20px;")
             pre.contentView #{content.content}
@@ -24,9 +46,9 @@ block contentX
         br
         div(style="text-align:center;")
             - if ( listurl == "free" )
-                button= '추천 ' + content.recommend
+                button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 추천 #{content.recommend}
             - else if ( listurl == "music" && user.id )
-                select
+                select#grade
                     option(value="10") ★★★★★
                     option(value="9") ★★★★☆
                     option(value="8") ★★★★
@@ -37,7 +59,7 @@ block contentX
                     option(value="3") ★☆
                     option(value="2") ★
                     option(value="1") ☆
-                button= '평가'
+                button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 평가
         br
         hr
 
@@ -88,7 +110,7 @@ block contentX
             hr
         
         - if ( user.id == content.id || user.id == 'admin' )
-            form(action="./delete/free", method="POST", onsubmit="return confirmRemove();")
+            form(action="./delete/" + listurl, method="POST", onsubmit="return confirmRemove();")
                 input(type="submit", value="삭제", style="float:right;")
                 input(type="hidden", value= content.id, name="id")
                 input(type="hidden", value= content.num, name="num")
@@ -114,8 +136,11 @@ block contentX
             each val in all
                 tr(class="trhover")
                     td #{val.num}
-                    td
+                    td(style="text-align:left; padding-left:50px;")
                         a.link(href="./content?type=free&num=" + val.num) #{val.title}
+                        - if ( val.comment.length > 0 )
+                            span   
+                            span(style="font-size:12px; color:grey;") [#{val.comment.length}]
                     td
                         a.link(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                     td #{val.writedate}

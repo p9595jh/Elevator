@@ -10,7 +10,10 @@ const freeboardSchema = new mongoose.Schema({
     grade: Number,
     gradeby: Array,
     comment: Array,
-    tag: String
+    tag: String,
+    image: String,
+    audio: String,
+    boardRequest: Number
 })
 
 module.exports = mongoose.model('music', freeboardSchema);

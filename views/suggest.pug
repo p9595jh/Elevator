@@ -30,8 +30,6 @@ block contentX
                             - else
                                 a.tblink(href="javascript:;" onclick="info('" + val.id + "')") #{val.nickname}
                             span(style="font-size:12px; float:right;")
-                                - if ( val.id == user.id || user.id == 'admin' )
-                                    a.link(href="javascript:;") 삭제 
                                 span #{val.writedate}
                         div(style="padding:10px;") #{val.comment}
                     td(style="text-align:right;")

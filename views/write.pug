@@ -6,7 +6,7 @@ block contentX
         span 글 작성
         hr
         br
-        form(method="POST", action="./handleWrite")
+        form(method="POST", action="./handleWrite", enctype="multipart/form-data")
             table(style="margin:auto; width:700px; text-align:center;")
                 tr
                     td(style="height:50px;")
@@ -17,6 +17,13 @@ block contentX
                 tr
                     td(style="height:50px;")
                         input(type="text", name="tag", placeholder="html 태그를 입력해주세요", style="width:500px;")
+                        br
+                        br
+                        input(type="file", name="image")
+                        span.link 이미지 (jpg,jpeg,png,gif)
+                        br
+                        input(type="file", name="audio")
+                        span.link 음악 (mp3, ogg, wav)
                         br
                         input(type="submit", name="submit", value="작성", style="float:right;")
                         input(type="hidden", name="boardtype", value= type)

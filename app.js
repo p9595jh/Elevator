@@ -25,6 +25,7 @@ var suggestRouter = require('./routes/suggest');
 var handleSuggestRouter = require('./routes/handleSuggest');
 var deleteRouter = require('./routes/delete');
 var musicRouter = require('./routes/music');
+var ajaxRouter = require('./routes/ajax');
 
 var app = express();
 
@@ -67,6 +68,7 @@ app.use('/suggest', suggestRouter);
 app.use('/handleSuggest', handleSuggestRouter);
 app.use('/delete', deleteRouter);
 app.use('/music', musicRouter);
+app.use('/ajax', ajaxRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

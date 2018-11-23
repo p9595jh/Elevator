@@ -11,7 +11,7 @@ block contentX
         table.tb
             tr(style="height:25px; font-weight:bold;")
                 td(style="70px;") 번호
-                td(style="160px;") 제목
+                td(style="140px;") 제목
                 td(style="65px;") 작성자
                 td(style="100px;") 날짜
                 td(style="55px;") 조회수
@@ -20,7 +20,7 @@ block contentX
             each val in free
                 tr(class="trhover")
                     td #{val.num}
-                    td
+                    td(style="text-align:left; padding-left:50px;")
                         a.link(href="./content?type=free&num=" + val.num) #{val.title}
                         - if ( val.comment.length > 0 )
                             span   

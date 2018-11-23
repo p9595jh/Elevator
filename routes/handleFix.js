@@ -40,23 +40,6 @@ router.post('/', function(req, res) {
                 });
             }
             else {
-                // var filePath;
-                // if ( files.image.name == '' ) {
-                //     filePath = 'public/images/noimage.jpg';
-                //     files.image.name = 'noimage.jpg';
-                // }
-                // else
-                //     filePath = files.image.path;
-
-                // var filePath = files.image.path;
-                // var fileName = req.session.userid + files.image.name.substring(files.image.name.lastIndexOf('.'));
-
-                // var localLocation = 'public/images/profileimages/';
-                // var dbLocation = 'images/profileimages/' + fileName;
-                // fs.copy(filePath, localLocation + fileName, function(err0) {
-                //     if ( err0 ) console.err(err0);
-                // });
-
                 if ( files.image.name != '' ) {
                     var filePath = files.image.path;
                     fs.copy(filePath, 'public/images/profileimages/' + req.session.userid, function(err0) {

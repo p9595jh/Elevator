@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
       nickname: req.session.nickname,
       stop: req.session.stop,
       joindate: req.session.joindate
-    },
+    }
     // free: free
   });
 });
