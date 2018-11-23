@@ -1,21 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 var formidable = require('formidable');
 var mongoose = require('mongoose');
 var fs = require('fs-extra');
 
 var FreeBoard = require('./freeboard.js');
 var MusicClass = require('./musicclass.js');
+var SubContent = require('./subcontents.js');
 
 mongoose.connect('mongodb://localhost:27017/elevator');
 
-// router.use(bodyParser.urlencoded({ extended: true }));
 router.post('/', function(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
         var boardtype = fields.boardtype;
 
+        // to free board
         if ( boardtype == "free" ) {
             FreeBoard.find({}).sort({num:-1}).exec(function(err, frees) {
                 if ( err ) {
@@ -46,7 +46,7 @@ router.post('/', function(req, res) {
                     console.log(files.image.type);
                     var ext = files.image.name.substring(files.image.name.lastIndexOf('.')).toLowerCase();
                     if ( ext == '.jpg' || ext == '.jpeg' || ext == '.png' || ext == '.gif' ) {
-                        imagePath = 'images/contentimages/' + 'free' + free.num + req.session.userid + ext;
+                        imagePath = 'images/contentimages/' + 'free_' + free.num + '_' + req.session.userid + ext;
                         fs.copy(files.image.path, 'public/' + imagePath, function(err0) {
                             if ( err0 ) console.err(err0);
                         });
@@ -55,7 +55,7 @@ router.post('/', function(req, res) {
                 if ( files.audio.name != '' ) {
                     var ext = files.audio.name.substring(files.audio.name.lastIndexOf('.')).toLowerCase();
                     if ( ext == '.mp3' || ext == '.ogg' || ext == '.wav' ) {
-                        audioPath = 'audios/contentaudios/' + 'free' + free.num + req.session.userid + ext;
+                        audioPath = 'audios/contentaudios/' + 'free_' + free.num + '_' + req.session.userid + ext;
                         fs.copy(files.audio.path, 'public/' + audioPath, function(err0) {
                             if ( err0 ) console.err(err0);
                         });
@@ -73,6 +73,7 @@ router.post('/', function(req, res) {
                 });
             });
         }
+        // to music board
         else if ( boardtype == "music" ) {
             if ( files.audio.name == '' ) {
                 console.log("No music file");
@@ -95,7 +96,7 @@ router.post('/', function(req, res) {
                 music.tag = fields.tag;
                 music.grade = 0;
                 music.gradeby = new Array();
-                music.boardRequest = 0;
+                music.boardRequest = false;
                 if ( music.title == '' ) music.title = '#';
                 if ( music.content == '' ) music.content = '#';
                 
@@ -111,7 +112,7 @@ router.post('/', function(req, res) {
                 if ( files.image.name != '' ) {
                     var ext = files.image.name.substring(files.image.name.lastIndexOf('.')).toLowerCase();
                     if ( ext == '.jpg' || ext == '.jpeg' || ext == '.png' || ext == '.gif' ) {
-                        imagePath = 'images/contentimages/' + 'music' + music.num + req.session.userid + ext;
+                        imagePath = 'images/contentimages/' + 'music_' + music.num + '_' + req.session.userid + ext;
                         fs.copy(files.image.path, 'public/' + imagePath, function(err0) {
                             if ( err0 ) console.err(err0);
                         });
@@ -120,7 +121,7 @@ router.post('/', function(req, res) {
                 if ( files.audio.name != '' ) {
                     var ext = files.audio.name.substring(files.audio.name.lastIndexOf('.')).toLowerCase();
                     if ( ext == '.mp3' || ext == '.ogg' || ext == '.wav' ) {
-                        audioPath = 'audios/contentaudios/' + 'music' + music.num + req.session.userid + ext;
+                        audioPath = 'audios/contentaudios/' + 'music_' + music.num + '_' + req.session.userid + ext;
                         fs.copy(files.audio.path, 'public/' + audioPath, function(err0) {
                             if ( err0 ) console.err(err0);
                         });
@@ -135,6 +136,65 @@ router.post('/', function(req, res) {
                         return;
                     }
                     res.redirect('./content?type=music&num=' + music.num);
+                });
+            });
+        }
+        // to sub board
+        else {
+            SubContent.find({}).sort({num:-1}).exec(function(err, subs) {
+                if ( err ) {
+                    console.log("Error in handleWrite!!!!");
+                    res.status(500).send({ error: 'database failure' });
+                    return;
+                }
+
+                var sub = new SubContent();
+                sub.type = boardtype;
+                sub.id = req.session.userid;
+                sub.nickname = req.session.nickname;
+                sub.title = fields.title;
+                sub.content = fields.content;
+                sub.tag = fields.tag;
+                if ( sub.title == '' ) sub.title = '#';
+                if ( sub.content == '' ) sub.content = '#';
+                
+                var date = new Date();
+                sub.writedate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+                sub.hit = 0;
+                sub.recommend = 0;
+                if ( subs.length == 0 ) sub.num = 0;
+                else sub.num = subs[0].num + 1;
+
+                var imagePath = '';
+                var audioPath = '';
+                if ( files.image.name != '' ) {
+                    console.log(files.image.type);
+                    var ext = files.image.name.substring(files.image.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.jpg' || ext == '.jpeg' || ext == '.png' || ext == '.gif' ) {
+                        imagePath = 'images/contentimages/' + boardtype + '_' + sub.num + '_' + req.session.userid + ext;
+                        fs.copy(files.image.path, 'public/' + imagePath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                if ( files.audio.name != '' ) {
+                    var ext = files.audio.name.substring(files.audio.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.mp3' || ext == '.ogg' || ext == '.wav' ) {
+                        audioPath = 'audios/contentaudios/' + boardtype + '_' + sub.num + '_' + req.session.userid + ext;
+                        fs.copy(files.audio.path, 'public/' + audioPath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                sub.image = imagePath;
+                sub.audio = audioPath;
+
+                sub.save(function(err) {
+                    if ( err ) {
+                        res.status(500).send({ error: 'database failure' });
+                        return;
+                    }
+                    res.redirect('./content?type=' + boardtype + '&num=' + sub.num);
                 });
             });
         }

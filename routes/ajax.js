@@ -46,8 +46,27 @@ router.post('/', function(req, res) {
     }
 });
 router.post('/boardrequest', function(req, res) {
+    var User = require('./user.js');
+    User.updateOne({id: req.body.userid}, {boardRequest: 1}, function(err1, output1) {});
     var MusicClass = require('./musicclass.js');
-    MusicClass.updateOne({_id: req.body._id}, {boardRequest: 1}, function(err1, output1) {});
+    MusicClass.updateOne({_id: req.body._id}, {boardRequest: true}, function(err1, output1) {});
+});
+router.post('/acceptboardrequest', function(req, res) {
+    var User = require('./user.js');
+    User.updateOne({id: req.body.userid}, {boardRequest: 2}, function(err1, output1) {});
+    var MusicClass = require('./musicclass.js');
+    MusicClass.updateOne({_id: req.body._id}, {boardRequest: false}, function(err1, output1) {});
+
+    var Sub = require('./sub.js');
+    var sub = new Sub();
+    sub.id = req.body.userid;
+    sub.subscribes = new Array();
+    sub.subscribes[0] = sub.id;
+    sub.stops = new Array();
+    sub.save(function(err) {
+        if ( err ) console.log("Error while creating sub board");
+        User.updateOne({id: sub.id}, {$push: {subscribes: sub.id}}, function(err1, output1) {});
+    });
 });
 
 module.exports = router;

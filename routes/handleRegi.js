@@ -25,6 +25,8 @@ router.post('/', function(req, res) {
         user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         user.introduction = req.body.intro.trim();
         user.stop = false;
+        user.boardRequest = 0;
+        user.subscribes = new Array();
         
         if ( users.length !== 0 ) {
             res.render('./join', {
@@ -87,6 +89,8 @@ router.post('/insert', function(req, res) {
         user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         user.introduction = req.body.intro.trim();
         user.stop = false;
+        user.boardRequest = 0;
+        user.subscribes = new Array();
         
         if ( users.length !== 0 ) {
             console.log("duplicated");

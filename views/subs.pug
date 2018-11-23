@@ -1,0 +1,32 @@
+extends layout
+
+block contentX
+
+    - if ( user.id )
+        div.box
+            span 구독한 게시판
+            hr
+            br
+            
+            ul
+                each val in user.subscribes
+                    li
+                        a.link(style="font-size:16px;", href="./subboard?type="+val) #{val}
+            br
+            br
+
+    div.box
+        span 서브게시판 목록
+        hr
+        br
+
+        ul
+            - if ( user.id )
+                each val in sub
+                    li
+                        a.link(style="font-size:16px;", href="javascript:;", onclick="alert('가입하시겠습니까?');") #{val.id}
+            - else
+                each val in sub
+                    li #{val.id}
+        br
+        br

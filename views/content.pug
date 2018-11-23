@@ -14,16 +14,16 @@ block contentX
         - if ( listurl == "music" )
             br
             span#gradeSpan(style="float:right; font-size:13px;") 평점 #{content.grade} by #{content.gradeby.length}명
-            - if ( content.grade >= 5 && content.gradeby.length >= 1 && user.id == content.id && content.boardRequest == 0 )
+            - if ( content.grade >= 5 && content.gradeby.length >= 1 && user.id == content.id && writer.boardRequest == 0 )
                 //- content.grade / content.gradeby.length == average
-                //- if content.boardRequest == 0, can request to admin to make own board
-                //- after requested, content.boardRequest would be 1
-                //- when admin accept the request, content.boardRequest would be 2 and having own board
+                //- if writer.boardRequest == 0, can request to admin to make own board
+                //- after requested, writer.boardRequest would be 1
+                //- when admin accept the request, writer.boardRequest would be 2 and having own board
                 br
-                button#boardRequest(style='float:right;', onclick="boardRequest('"+content._id+"')") 게시판 생성 요청
-            - else if ( user.id == 'admin' && content.boardRequest == 1 )
+                button#boardRequest(style='float:right;', onclick="boardRequest('"+content.id+"','"+content._id+"')") 게시판 생성 요청
+            - else if ( user.id == 'admin' && writer.boardRequest == 1 )
                 br
-                button(style='float:right;') 게시판 생성 수락
+                button#acceptBoardRequest(style='float:right;', onclick="acceptBoardRequest('"+writer.id+"','"+content._id+"')") 게시판 생성 수락
         br
         br
 
@@ -137,7 +137,10 @@ block contentX
                 tr(class="trhover")
                     td #{val.num}
                     td(style="text-align:left; padding-left:50px;")
-                        a.link(href="./content?type=free&num=" + val.num) #{val.title}
+                        - if ( val.boardRequest )
+                            a.link(style="font-weight:bold;", href="./content?type="+listurl+"&num=" + val.num) #{val.title}
+                        - else
+                            a.link(href="./content?type="+listurl+"&num=" + val.num) #{val.title}
                         - if ( val.comment.length > 0 )
                             span   
                             span(style="font-size:12px; color:grey;") [#{val.comment.length}]

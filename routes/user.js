@@ -7,7 +7,9 @@ const userSchema = new mongoose.Schema({
     genre: String,
     stop: Boolean,
     joindate: String,
-    introduction: String
+    introduction: String,
+    boardRequest: Number,
+    subscribes: Array
 })
 
 module.exports = mongoose.model('user', userSchema);

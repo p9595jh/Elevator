@@ -1,0 +1,38 @@
+extends layout
+
+block contentX
+
+    div.box
+        span= title
+        hr
+        br
+        br
+        
+        table.tb
+            tr(style="height:25px; font-weight:bold;")
+                td(style="70px;") 번호
+                td(style="140px;") 제목
+                td(style="65px;") 작성자
+                td(style="100px;") 날짜
+                td(style="55px;") 조회수
+                td(style="40px;") 추천
+
+            each val in subcontents
+                tr(class="trhover")
+                    td #{val.num}
+                    td(style="text-align:left; padding-left:50px;")
+                        a.link(href="./content?type=" + val.type + "&num=" + val.num) #{val.title}
+                        - if ( val.comment.length > 0 )
+                            span   
+                            span(style="font-size:12px; color:grey;") [#{val.comment.length}]
+                    td
+                        a.link(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
+                    td #{val.writedate}
+                    td #{val.hit}
+                    td #{val.recommend}
+        br
+        br
+        - if ( user.id )
+            form(method="POST", action="./write")
+                input(type="submit", name="submit", value="글쓰기", style="float:right;")
+                input(type="hidden", name="type", value= sub.id)

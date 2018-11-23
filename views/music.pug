@@ -21,7 +21,10 @@ block contentX
                 tr(class="trhover")
                     td #{val.num}
                     td(style="text-align:left; padding-left:50px;")
-                        a.link(href="./content?type=music&num=" + val.num) #{val.title}
+                        - if ( val.boardRequest )
+                            a.link(style="font-weight:bold;", href="./content?type=music&num=" + val.num) #{val.title}
+                        - else
+                            a.link(href="./content?type=music&num=" + val.num) #{val.title}
                         - if ( val.comment.length > 0 )
                             span   
                             span(style="font-size:12px; color:grey;") [#{val.comment.length}]

@@ -33,8 +33,8 @@ function recommend(boardtype, _id, id, count) {
     }
 }
 
-function boardRequest(_id) {
-    var data = { '_id' : _id };
+function boardRequest(userid, _id) {
+    var data = { 'userid' : userid, '_id' : _id };
     data = JSON.stringify(data);
 
     var xhr = new XMLHttpRequest();
@@ -43,4 +43,16 @@ function boardRequest(_id) {
     xhr.send(data);
 
     document.getElementById('boardRequest').style.display = "none";
+}
+
+function acceptBoardRequest(userid, _id) {
+    var data = { 'userid' : userid, '_id' : _id };
+    data = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './ajax/acceptboardrequest');
+    xhr.setRequestHeader('Content-type', "application/json");
+    xhr.send(data);
+
+    document.getElementById('acceptBoardRequest').style.display = "none";
 }

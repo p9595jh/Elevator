@@ -13,7 +13,7 @@ const freeboardSchema = new mongoose.Schema({
     tag: String,
     image: String,
     audio: String,
-    boardRequest: Number
+    boardRequest: Boolean
 })
 
 module.exports = mongoose.model('music', freeboardSchema);
