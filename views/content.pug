@@ -14,7 +14,7 @@ block contentX
         - if ( listurl == "music" )
             br
             span#gradeSpan(style="float:right; font-size:13px;") 평점 #{content.grade} by #{content.gradeby.length}명
-            - if ( content.grade >= 5 && content.gradeby.length >= 1 && user.id == content.id && writer.boardRequest == 0 )
+            - if ( content.grade >= 3 && content.gradeby.length >= 1 && user.id == content.id && writer.boardRequest == 0 )
                 //- content.grade / content.gradeby.length == average
                 //- if writer.boardRequest == 0, can request to admin to make own board
                 //- after requested, writer.boardRequest would be 1
@@ -47,16 +47,11 @@ block contentX
         div(style="text-align:center;")
             - if ( listurl == "music" && user.id )
                 select#grade
-                    option(value="10") ★★★★★
-                    option(value="9") ★★★★☆
-                    option(value="8") ★★★★
-                    option(value="7") ★★★☆
-                    option(value="6") ★★★
-                    option(value="5") ★★☆
-                    option(value="4") ★★
-                    option(value="3") ★☆
-                    option(value="2") ★
-                    option(value="1") ☆
+                    option(value="5") ★★★★★
+                    option(value="4") ★★★★
+                    option(value="3") ★★★
+                    option(value="2") ★★
+                    option(value="1") ★
                 button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 평가
             - else
                 button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 추천 #{content.recommend}
