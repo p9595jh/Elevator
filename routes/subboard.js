@@ -44,4 +44,10 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/get-data', function(req, res, next) {
+    SubContent.find({type: req.query.type}).sort({num:-1}).exec(function(err, subcontents) {
+        res.send(subcontents);
+    });
+});
+
 module.exports = router;
