@@ -32,4 +32,11 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/get-data', function(req, res, next) {
+    Sub.find(function(err, subs) {
+        if (err) return res.status(500).send({error: 'database failure'});
+        res.send(subs);
+    });
+})
+
 module.exports = router;

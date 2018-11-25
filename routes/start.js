@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 
   res.render('start', {
-    title: 'Start',
+    title: 'Elevator',
     user: {
       id: req.session.userid,
       nickname: req.session.nickname,

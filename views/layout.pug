@@ -3,6 +3,7 @@ html
   head
     title= title
     meta(name='viewport', content='width=devide-width', initial-scale=1)
+    link(href="https://fonts.googleapis.com/css?family=Ubuntu", rel="stylesheet")
     link(rel='stylesheet', href='/stylesheets/style.css')
     //- link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     script( src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js' )
@@ -12,7 +13,7 @@ html
     div#topscroll
       a(style="text-decoration:none; color:black; font-weight:bold;", href="#top") TOP
 
-    header
+    header(style="padding-top:20px; padding-down:20px;")
       ul(style="float:right; list-style:none;")
         li
           a(href="/notice" class="link") 공지사항
@@ -26,8 +27,8 @@ html
                 li
                   a(href="./admin", class="link") 어드민
         
-      div(style="text-align:center; font-family:consolas;")
-        a(style="text-decoration:none; color:black;", href="/start") ELEVATOR
+      div(style="text-align:center;")
+        a(style="text-decoration:none; color:black; font-family:Ubuntu;", href="/start") elevator
 
     br
 
@@ -35,9 +36,9 @@ html
       nav
         a(href="./start") HOME
         a(href="./free") 자유게시판
-        a(href="./suggest") 건의게시판
         a(href="./music") 음악게시판
         a(href="./subs") 서브게시판
+        a(href="./suggest") 건의게시판
     
     div#content
       br

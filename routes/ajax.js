@@ -36,7 +36,7 @@ router.post('/', function(req, res) {
                     return;
                 }
             }
-            grade += req.body.count;
+            grade += req.body.count * 1;
             var people = output.gradeby.length + 1;
             MusicClass.updateOne({_id: req.body._id}, {grade: grade}, function(err1, output1) {});
             MusicClass.updateOne({_id: req.body._id}, {$push: {gradeby: req.body.id}}, function(err1, output1) {});

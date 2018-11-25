@@ -21,7 +21,7 @@ function recommend(boardtype, _id, id, count) {
         xhr.addEventListener('load', function() {
             var result = JSON.parse(xhr.responseText);
             var gradeSpan = document.getElementById('gradeSpan');
-            gradeSpan.innerHTML = '평점 ' + result.grade + ' by ' + result.people;
+            gradeSpan.innerHTML = '평점 ' + result.grade + ' by ' + result.people + '명';
         });
     }
     else {
