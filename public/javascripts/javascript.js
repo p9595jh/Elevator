@@ -79,3 +79,91 @@ function subscribeBoard(userid, subid) {
             window.location.reload(true);
     });
 }
+
+function stop(userid) {
+    var administration = document.getElementById(userid + "button").innerHTML;
+    if ( !confirm("'" + userid + "' " + administration + "하시겠습니까?") ) return;
+
+    var data = { 'userid' : userid };
+    data = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './ajax/stop');
+    xhr.setRequestHeader('Content-type', "application/json");
+    xhr.send(data);
+
+    xhr.addEventListener('load', function() {
+        var result = JSON.parse(xhr.responseText);
+        if ( result.message != 'done' ) {
+            alert('에러가 발생하였습니다!');
+            return;
+        }
+
+        var text = document.getElementById(userid);
+        var button = document.getElementById(userid + "button");
+
+        if ( !result.stop ) {
+            text.style.color = "black";
+            button.innerHTML = "정지";
+        }
+        else {
+            text.style.color = "red";
+            button.innerHTML = "해제";
+        }
+    });
+}
+
+function substop(boardtype, userid) {
+    var administration = document.getElementById(userid + "button").innerHTML;
+    if ( !confirm("'" + userid + "' " + administration + "하시겠습니까?") ) return;
+
+    var data = { 'boardtype' : boardtype, 'userid' : userid };
+    data = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './ajax/substop');
+    xhr.setRequestHeader('Content-type', "application/json");
+    xhr.send(data);
+
+    xhr.addEventListener('load', function() {
+        var result = JSON.parse(xhr.responseText);
+        if ( result.message != 'done' ) {
+            alert('에러가 발생하였습니다!');
+            return;
+        }
+
+        var text = document.getElementById(userid);
+        var button = document.getElementById(userid + "button");
+
+        if ( !result.stop ) {
+            text.style.color = "black";
+            button.innerHTML = "정지";
+        }
+        else {
+            text.style.color = "red";
+            button.innerHTML = "해제";
+        }
+    });
+}
+
+function find(type) {
+    var code = document.getElementById("find" + type).value;
+    if ( code == '' ) {
+        alert('비어있습니다');
+        return;
+    }
+
+    var data = { 'type' : type, 'code' : code };
+    data = JSON.stringify(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', './ajax/find');
+    xhr.setRequestHeader('Content-type', "application/json");
+    xhr.send(data);
+
+    xhr.addEventListener('load', function() {
+        var result = JSON.parse(xhr.responseText);
+        var text = document.getElementById(type + "result");
+        text.innerHTML = result.result;
+    });
+}

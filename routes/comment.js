@@ -7,7 +7,6 @@ mongoose.connect('mongodb://localhost:27017/elevator');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 router.post('/', function(req, res) {
-    console.log(req.body);
     if ( req.body.board == 'free' ) {
         var Board = require('./freeboard.js');
         Board.findOne({_id: req.body._id}, function(err, frees) {
@@ -28,7 +27,7 @@ router.post('/', function(req, res) {
             var id = req.session.userid;
             var nickname = req.session.nickname;
             var date = new Date();
-            var writedate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+            var writedate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
             var comment = req.body.comment;
             if ( comment == '' ) comment = '#';
             var data = {num: num, id: id, nickname: nickname, writedate: writedate, comment: comment};

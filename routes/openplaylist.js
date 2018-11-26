@@ -12,10 +12,22 @@ router.get('/', function(req, res) {
             res.status(500).send({ error: 'database failure' });
             return;
         }
-        res.render('openplaylist', {
-            title: req.query.userid,
-            playlist: output
-        });
+        else if ( !output ) {
+            console.log("No playlist yet");
+            res.render('openplaylist', {
+                title: req.query.userid,
+                playlist: {
+                    id: req.query.userid,
+                    list: []
+                }
+            });
+        }
+        else {
+            res.render('openplaylist', {
+                title: req.query.userid,
+                playlist: output
+            });
+        }
     });
 });
 

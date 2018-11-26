@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
                 if ( free.content == '' ) free.content = '#';
                 
                 var date = new Date();
-                free.writedate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+                free.writedate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
                 free.hit = 0;
                 free.recommend = 0;
                 if ( frees.length == 0 ) free.num = 0;

@@ -32,7 +32,7 @@ block contentX
                     td #{val.recommend}
         br
         br
-        - if ( user.id )
+        - if ( user.id && !user.stop )
             form(method="POST", action="./write")
                 input(type="submit", name="submit", value="글쓰기", style="float:right;")
                 input(type="hidden", name="type", value="free")

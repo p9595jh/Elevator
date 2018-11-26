@@ -22,7 +22,7 @@ router.post('/', function(req, res) {
         user.nickname = req.body.nickname.trim();
         user.genre = req.body.genre.trim();
         var date = new Date();
-        user.joindate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+        user.joindate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
         user.introduction = req.body.intro.trim();
         user.stop = false;
         user.boardRequest = 0;

@@ -109,5 +109,98 @@ router.post('/subscribeboard', function(req, res) {
         res.json(responseData);
     });
 });
+router.post('/stop', function(req, res) {
+    if ( req.session.userid != 'admin' ) {
+        console.log('not admin');
+        return;
+    }
+
+    var userid = req.body.userid;
+    var User = require('./user.js');
+
+    User.findOne({id: userid}, function(err, output) {
+        User.updateOne({id: userid}, {stop: !output.stop}, function(err1, output1) {
+            if ( !err1 ) {
+                var responseData = { "stop" : !output.stop, "message" : "done" };
+                res.json(responseData);
+            }
+        });
+    });
+});
+router.post('/substop', function(req, res) {
+    if ( req.session.userid != req.body.boardtype ) {
+        console.log('not board admin');
+        return;
+    }
+
+    var boardtype = req.body.boardtype;
+    var userid = req.body.userid;
+    var Sub = require('./sub.js');
+    Sub.findOne({id: boardtype}, function(err, sub) {
+        var stopped = false;
+        var num = -1;
+        var _id = sub._id;
+        for (var i=0; i<sub.stops.length; i++) {
+            if ( userid == sub.stops[i] ) {
+                stopped = true;
+                num = i;
+                break;
+            }
+        }
+
+        if ( stopped ) {
+            // logic to remove userid from sub.stops
+            Sub.updateOne({_id: _id}, {$pullAll: {stops: [userid]}}, function(err1, output1) {
+                if ( !err1 ) {
+                    var responseData = { "stop" : false, "message" : "done" };
+                    res.json(responseData);
+                }
+            });
+        }
+        else {
+            Sub.updateOne({id: boardtype}, {$push: {stops: userid}}, function(err1, output1) {
+                if ( !err1 ) {
+                    var responseData = { "stop" : true, "message" : "done" };
+                    res.json(responseData);
+                }
+            });
+        }
+    });
+});
+router.post('/find', function(req, res) {
+    var type = req.body.type;
+    var code = req.body.code;
+    var User = require('./user.js');
+    User.findOne({_id: code}, function(err, output) {
+        if ( err || !output ) {
+            var responseData = { "result" : "찾기에 실패하였습니다." };
+            res.json(responseData);
+        }
+        else if ( type == 'id' ) {
+            var responseData = { "result" : output.id };
+            res.json(responseData);
+        }
+        else if ( type == 'pw' ) {
+            var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+            var string_length = 15;
+            var randomstring = '';
+            for (var i=0; i<string_length; i++) {
+                var rnum = Math.floor(Math.random() * chars.length);
+                randomstring += chars.substring(rnum,rnum+1);
+            }
+            User.updateOne({_id: code}, {pw: randomstring}, function(err1, output1) {
+                if ( err1 ) {
+                    var responseData = { "result" : "찾기에 실패하였습니다." };
+                    res.json(responseData);
+                }
+                else {
+                    var responseData = { "result" : "비밀번호가 " + randomstring + " 으로 변경되었습니다." };
+                    res.json(responseData);
+                }
+            });
+        }
+        else console.log("???????????");
+    });
+});
 
 module.exports = router;

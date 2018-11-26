@@ -32,8 +32,8 @@ block contentX
                     td #{val.recommend}
         br
         br
-        - if ( user.id )
+        - if ( user.id && !user.stop )
             form(method="POST", action="./write")
                 input(type="submit", name="submit", value="글쓰기", style="float:right;")
                 input(type="hidden", name="type", value= sub.id)
-            button(style="float:right;" onclick="playlist('"+sub.id+"')") 재생목록
+        button(style="float:right;" onclick="playlist('"+sub.id+"')") 재생목록

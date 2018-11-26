@@ -1,0 +1,32 @@
+extends layout
+
+block contentX
+    
+    div.reg(style="border-width:0px;")
+        span(style="float:left;") 아이디 찾기
+        br
+        hr
+        br
+        span 회원코드를 입력해주세요.
+        br
+        br
+        input(type="text", id="findid")
+        button(onclick="find('id')") 찾기
+        p#idresult
+    br
+    br
+
+    div.reg(style="border-width:0px;")
+        span(style="float:left;") 비밀번호 찾기
+        br
+        hr
+        br
+        span 회원코드를 입력해주세요.
+        br
+        br
+        input(type="text", id="findpw")
+        button(onclick="find('pw')") 찾기
+        p#pwresult
+    br
+    br
+    

@@ -13,13 +13,16 @@ block contentX
                 th ID
                 th 관리
             each val in users
-                tr
-                    - if ( !val.stop )
-                        td
-                            b(id= val.id+"text") #{val.id}
-                        td
-                            button(onclick="stop()" id= val.id+"button")
-                    - else
-                        td
-                            b(style="color:red;" id= val.id+"text") #{val.id}
-                        td
+                - if ( val.id != 'admin' )
+                    tr
+                        - if ( !val.stop )
+                            td
+                                b(style="cursor:pointer;", id= val.id, onclick="info('"+val.id+"')") #{val.id}
+                            td
+                                button(onclick="stop('"+val.id+"')", id= val.id+"button") 정지
+                        - else
+                            td
+                                b(style="color:red; cursor:pointer;" id= val.id, onclick="info('"+val.id+"')") #{val.id}
+                            td
+                                button(onclick="stop('"+val.id+"')", id= val.id+"button") 해제
+        br

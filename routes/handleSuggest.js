@@ -13,7 +13,7 @@ router.post('/', function(req, res, next) {
     suggest.nickname = req.session.nickname;
     suggest.comment = req.body.comment;
     var date = new Date();
-    suggest.writedate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    suggest.writedate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
 
     Suggest.find().sort({num:-1}).exec(function(err, suggests) {
         if ( err ) {

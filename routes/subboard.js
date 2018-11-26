@@ -27,6 +27,15 @@ router.get('/', function(req, res, next) {
             res.redirect('./start');
             return;
         }
+        var stopped = false;
+        if ( req.session.userid ) {
+            for (var i=0; i<sub.stops.length; i++) {
+                if ( sub.stops[i] == req.session.userid ) {
+                    stopped = true;
+                    break;
+                }
+            }
+        }
 
         SubContent.find({type: req.query.type}).sort({num:-1}).exec(function(err, subcontents) {
             res.render('subboard', {
@@ -36,7 +45,7 @@ router.get('/', function(req, res, next) {
                 user: {
                     id: req.session.userid,
                     nickname: req.session.nickname,
-                    stop: req.session.stop,
+                    stop: req.session.stop || stopped,
                     joindate: req.session.joindate,
                     boardRequest: req.session.boardRequest
                 }

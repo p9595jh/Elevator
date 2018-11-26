@@ -1,0 +1,29 @@
+extends layout
+
+block contentX
+
+    div.box
+        span= title
+        hr
+        br
+        br
+
+        table.admintable
+            tr
+                th ID
+                th 관리
+            each val in sub.stops
+                //- - if ( val != 'admin' && val != user.id )
+                tr
+                    td
+                        b(style="color:red; cursor:pointer;", id= val, onclick="info('"+val+"')") #{val}
+                    td
+                        button(onclick="substop('"+user.id+"','"+val+"')", id= val+"button") 해제
+            each val in clean
+                - if ( val != 'admin' && val != user.id )
+                    tr
+                        td
+                            b(style="cursor:pointer;", id= val, onclick="info('"+val+"')") #{val}
+                        td
+                            button(onclick="substop('"+user.id+"','"+val+"')", id= val+"button") 정지
+        br

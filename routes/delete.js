@@ -38,27 +38,53 @@ router.post('/subboard', function(req, res, next) {
 
 router.post('/comment', function(req, res, next) {
     // var id = req.body.id;
-    // var num = req.body.num;
-    // var contentnum = req.body.contentnum;
-    // FreeBoard.findOneAndUpdate({num: contentnum}, {$pull: {comment: {$elemMatch: {num: num}}}}, function(err, output) {
-    //     if (err) console.log("Error on deletion");
-    //     console.log(output);
-    // });
-    // var c = "<span style='color:red;'>삭제된 댓글입니다</span>";
-    
-    // FreeBoard.findOneAndUpdate({num: contentnum, comment: {$elemMatch: {num: num}}}, {$set: {"comment.$.comment": c}}, function(err, doc) {
-    //     console.log(doc);
-    // });
-    // FreeBoard.findOne({num: contentnum}, function(err, output) {
-    //     for (var i=0; i<output.comment.length; i++) {
-    //         if ( output.comment[i].num == num ) {
-    //             console.log(output.comment[i]);
-    //             break;
-    //         }
-    //     }
-    // });
+    var num = req.body.num;
+    var contentnum = req.body.contentnum;
+    var boardtype = req.body.boardtype;
 
-    res.redirect('../content?type=free&num=' + contentnum);
+    if ( boardtype == 'free' ) {
+        var FreeBoard = require('./freeboard.js');
+        FreeBoard.findOne({num: contentnum}, function(err, output) {
+            var _id = output._id;
+            var comment;
+            for (var i=0; i<output.comment.length; i++) {
+                if ( num == output.comment[i].num ) {
+                    comment = output.comment[i];
+                    break;
+                }
+            }
+            FreeBoard.updateOne({_id: _id}, {$pullAll: {comment: [comment]}}, function(err1, output1) {});
+        });
+    }
+    else if ( boardtype == 'music' ) {
+        var MusicClass = require('./musicclass.js');
+        MusicClass.findOne({num: contentnum}, function(err, output) {
+            var _id = output._id;
+            var comment;
+            for (var i=0; i<output.comment.length; i++) {
+                if ( num == output.comment[i].num ) {
+                    comment = output.comment[i];
+                    break;
+                }
+            }
+            MusicClass.updateOne({_id: _id}, {$pullAll: {comment: [comment]}}, function(err1, output1) {});
+        });
+    }
+    else {
+        var SubContent = require('./subcontents.js');
+        SubContent.findOne({num: contentnum}, function(err, output) {
+            var _id = output._id;
+            var comment;
+            for (var i=0; i<output.comment.length; i++) {
+                if ( num == output.comment[i].num ) {
+                    comment = output.comment[i];
+                    break;
+                }
+            }
+            SubContent.updateOne({_id: _id}, {$pullAll: {comment: [comment]}}, function(err1, output1) {});
+        });
+    }
+    res.redirect("../content?type=" + boardtype + "&num=" + contentnum);
 });
 
 module.exports = router;

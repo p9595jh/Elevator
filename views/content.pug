@@ -29,7 +29,7 @@ block contentX
 
         - if ( content.image != '' )
             div(style="text-align:center;")
-                img(src= content.image, width="600")
+                img(src= content.image, width= imageWidth)
             br
             br
         - if ( content.audio != '' )
@@ -78,6 +78,7 @@ block contentX
                                         input(type="hidden", name="contentnum", value= content.num)
                                         input(type="hidden", name="num", value= val.num)
                                         input(type="hidden", name="id", value= val.id)
+                                        input(type="hidden", name="boardtype", value= boardtype)
                                     a.link(href="javascript:;", onclick="document.getElementById('removeCmt" + val.num + "').submit()") 삭제  
                                 span #{val.writedate}
                         div(style="padding-left:10px;")
@@ -88,7 +89,7 @@ block contentX
                     td(style="text-align:right;")
 
         br
-        - if ( user.id )
+        - if ( user.id && !user.stop )
             br
             form(method="POST", action="./comment")
                 input(type="hidden", name="board", value= listurl)

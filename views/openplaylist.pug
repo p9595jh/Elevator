@@ -17,6 +17,8 @@ body
             br
             br
 
+            - if ( playlist.list.length == 0 )
+                p 아직 재생목록이 없습니다.
             table(border="0")
                 each val in playlist.list
                     tr

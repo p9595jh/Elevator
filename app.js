@@ -31,6 +31,9 @@ var subboardRouter = require('./routes/subboard');
 var openPlayListRouter = require('./routes/openplaylist');
 var noticeRouter = require('./routes/notice');
 var handleNoticeRouter = require('./routes/handleNotice');
+var adminRouter = require('./routes/admin');
+var subadminRouter = require('./routes/subadmin');
+var findRouter = require('./routes/find');
 
 var app = express();
 
@@ -79,6 +82,9 @@ app.use('/subboard', subboardRouter);
 app.use('/openplaylist', openPlayListRouter);
 app.use('/notice', noticeRouter);
 app.use('/handleNotice', handleNoticeRouter);
+app.use('/admin', adminRouter);
+app.use('/subadmin', subadminRouter);
+app.use('/find', findRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

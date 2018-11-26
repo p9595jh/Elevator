@@ -18,7 +18,7 @@ router.post('/', function(req, res, next) {
     notice.nickname = req.session.nickname;
     notice.comment = req.body.comment;
     var date = new Date();
-    notice.writedate = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+    notice.writedate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
 
     Notice.find().sort({num:-1}).exec(function(err, notices) {
         if ( err ) {
