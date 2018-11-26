@@ -6,7 +6,10 @@ router.get('/', function(req, res, next) {
     title: '회원가입',
     user: {
       id: req.session.userid,
-      nickname: req.session.nickname
+      nickname: req.session.nickname,
+      stop: req.session.stop,
+      joindate: req.session.joindate,
+      boardRequest: req.session.boardRequest
     },
     errmsg: '',
     past: {

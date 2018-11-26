@@ -28,6 +28,9 @@ var musicRouter = require('./routes/music');
 var ajaxRouter = require('./routes/ajax');
 var subsRouter = require('./routes/subs');
 var subboardRouter = require('./routes/subboard');
+var openPlayListRouter = require('./routes/openplaylist');
+var noticeRouter = require('./routes/notice');
+var handleNoticeRouter = require('./routes/handleNotice');
 
 var app = express();
 
@@ -73,6 +76,9 @@ app.use('/music', musicRouter);
 app.use('/ajax', ajaxRouter);
 app.use('/subs', subsRouter);
 app.use('/subboard', subboardRouter);
+app.use('/openplaylist', openPlayListRouter);
+app.use('/notice', noticeRouter);
+app.use('/handleNotice', handleNoticeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -36,15 +36,16 @@ router.post('/subboard', function(req, res, next) {
     });
 })
 
-router.post('/freecomment', function(req, res, next) {
-    var id = req.body.id;
-    var num = req.body.num;
-    var contentnum = req.body.contentnum;
-    FreeBoard.findOneAndUpdate({num: contentnum}, {$pull: {comment: {$elemMatch: {num: num}}}}, function(err, output) {
-        if (err) console.log("Error on deletion");
-        console.log(output);
-    });
-    var c = "<span style='color:red;'>삭제된 댓글입니다</span>";
+router.post('/comment', function(req, res, next) {
+    // var id = req.body.id;
+    // var num = req.body.num;
+    // var contentnum = req.body.contentnum;
+    // FreeBoard.findOneAndUpdate({num: contentnum}, {$pull: {comment: {$elemMatch: {num: num}}}}, function(err, output) {
+    //     if (err) console.log("Error on deletion");
+    //     console.log(output);
+    // });
+    // var c = "<span style='color:red;'>삭제된 댓글입니다</span>";
+    
     // FreeBoard.findOneAndUpdate({num: contentnum, comment: {$elemMatch: {num: num}}}, {$set: {"comment.$.comment": c}}, function(err, doc) {
     //     console.log(doc);
     // });

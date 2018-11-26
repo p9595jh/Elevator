@@ -36,7 +36,8 @@ router.get('/', function(req, res, next) {
                         id: req.session.userid,
                         nickname: req.session.nickname,
                         stop: req.session.stop,
-                        joindate: req.session.joindate
+                        joindate: req.session.joindate,
+                        boardRequest: req.session.boardRequest
                     },
                     content: frees,
                     type: '자유게시판',
@@ -71,7 +72,8 @@ router.get('/', function(req, res, next) {
                             id: req.session.userid,
                             nickname: req.session.nickname,
                             stop: req.session.stop,
-                            joindate: req.session.joindate
+                            joindate: req.session.joindate,
+                            boardRequest: req.session.boardRequest
                         },
                         content: musics,
                         type: '음악게시판',
@@ -108,7 +110,8 @@ router.get('/', function(req, res, next) {
                         id: req.session.userid,
                         nickname: req.session.nickname,
                         stop: req.session.stop,
-                        joindate: req.session.joindate
+                        joindate: req.session.joindate,
+                        boardRequest: req.session.boardRequest
                     },
                     content: subs,
                     type: type + ' - 서브게시판',

@@ -16,7 +16,10 @@ router.get('/', function(req, res, next) {
             title: '건의사항',
             user: {
                 id: req.session.userid,
-                nickname: req.session.nickname
+                nickname: req.session.nickname,
+                stop: req.session.stop,
+                joindate: req.session.joindate,
+                boardRequest: req.session.boardRequest
             },
             content: suggests
         })

@@ -73,8 +73,8 @@ block contentX
                             - else
                                 a.tblink(href="javascript:;", onclick="info('" + val.id + "')") #{val.nickname}
                             span(style="font-size:12px; float:right;")
-                                - if ( user.id == val.id || user.id == 'admin' )
-                                    form(action="./delete/freecomment", id="removeCmt" + val.num, method="POST", style="display:none;")
+                                - if ( user.id == val.id || user.id == 'admin' || boardtype == user.id )
+                                    form(action="./delete/comment", id="removeCmt" + val.num, method="POST", style="display:none;")
                                         input(type="hidden", name="contentnum", value= content.num)
                                         input(type="hidden", name="num", value= val.num)
                                         input(type="hidden", name="id", value= val.id)
@@ -104,7 +104,7 @@ block contentX
         - else
             hr
         
-        - if ( user.id == content.id || user.id == 'admin' )
+        - if ( user.id == content.id || user.id == 'admin' || boardtype == user.id )
             form(action="./delete/" + listurl, method="POST", onsubmit="return confirmRemove();")
                 input(type="submit", value="삭제", style="float:right;")
                 input(type="hidden", value= content.id, name="id")

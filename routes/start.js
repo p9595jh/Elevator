@@ -19,7 +19,8 @@ router.get('/', function(req, res, next) {
       id: req.session.userid,
       nickname: req.session.nickname,
       stop: req.session.stop,
-      joindate: req.session.joindate
+      joindate: req.session.joindate,
+      boardRequest: req.session.boardRequest
     }
     // free: free
   });

@@ -1,0 +1,36 @@
+extends layout
+
+block contentX
+    
+    div.box
+        span#visitor 공지사항
+        hr
+        br
+
+        - if ( user.id == 'admin' )
+            form(method="POST", action="./handleNotice")
+                table(style="width:700px; margin:auto;")
+                    tr
+                        td
+                            textarea(cols="80", rows="5", name="comment")
+                        td
+                            input(type="submit", name="cmt", value="작성", style="width:100px; height:80px;")
+            br
+        
+        table.tb2
+            each val in content
+                tr(style="height:110px; vertical-align:top;")
+                    td(style="text-align:center; vertical-align:middle; width:110px; border-right:1px solid rgb(0,91,159)")
+                        img(src="images/profileimages/" + val.id, width="70", height="70")
+                    td
+                        div(style="font-size:12px; padding:2px; margin-left:5px; border-bottom:1px dotted rgb(0,91,159);")
+                            - if ( val.id == 'admin' )
+                                b
+                                    a.tblink(href="javascript:;" onclick="info('admin')") #{val.nickname}
+                            - else
+                                a.tblink(href="javascript:;" onclick="info('" + val.id + "')") #{val.nickname}
+                            span(style="font-size:12px; float:right;")
+                                span #{val.writedate}
+                        div(style="padding-left:10px;")
+                            pre.contentView #{val.comment}
+                    td(style="text-align:right;")

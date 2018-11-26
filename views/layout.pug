@@ -24,8 +24,12 @@ html
               li
                 a(href="./loginpage", class="link") 로그인
             - if ( user.id == "admin" )
-                li
-                  a(href="./admin", class="link") 어드민
+              li
+                a(href="./admin", class="link") 어드민
+            - else if ( user.boardRequest == 2 )
+              li
+                a(href="./subadmin", class="link") 어드민
+                
         
       div(style="text-align:center;")
         a(style="text-decoration:none; color:black; font-family:Ubuntu;", href="/start") elevator

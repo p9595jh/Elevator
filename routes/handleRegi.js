@@ -34,7 +34,10 @@ router.post('/', function(req, res) {
                 errmsg: '이미 존재하는 ID입니다',
                 user: {
                     id: req.session.userid,
-                    nickname: req.session.nickname
+                        nickname: req.session.nickname,
+                        stop: req.session.stop,
+                        joindate: req.session.joindate,
+                        boardRequest: req.session.boardRequest
                 },
                 past: req.body
             });
@@ -46,7 +49,10 @@ router.post('/', function(req, res) {
                     errmsg: '* 표시된 칸은 모두 채워야 합니다',
                     user: {
                         id: req.session.userid,
-                        nickname: req.session.nickname
+                        nickname: req.session.nickname,
+                        stop: req.session.stop,
+                        joindate: req.session.joindate,
+                        boardRequest: req.session.boardRequest
                     },
                     past: req.body
                 });

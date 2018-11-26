@@ -31,5 +31,6 @@ block contentX
                                 a.tblink(href="javascript:;" onclick="info('" + val.id + "')") #{val.nickname}
                             span(style="font-size:12px; float:right;")
                                 span #{val.writedate}
-                        div(style="padding:10px;") #{val.comment}
+                        div(style="padding-left:10px;")
+                            pre.contentView #{val.comment}
                     td(style="text-align:right;")

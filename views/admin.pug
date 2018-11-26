@@ -2,4 +2,24 @@ extends layout
 
 block contentX
 
-    
+    div.box
+        span 회원관리
+        hr
+        br
+        br
+
+        table.admintable
+            tr
+                th ID
+                th 관리
+            each val in users
+                tr
+                    - if ( !val.stop )
+                        td
+                            b(id= val.id+"text") #{val.id}
+                        td
+                            button(onclick="stop()" id= val.id+"button")
+                    - else
+                        td
+                            b(style="color:red;" id= val.id+"text") #{val.id}
+                        td

@@ -185,6 +185,22 @@ router.post('/', function(req, res) {
                             if ( err0 ) console.err(err0);
                         });
                     }
+                    if ( req.session.userid == boardtype ) {
+                        var Playlist = require('./playlist.js');
+                        var data = { "title" : sub.title, "path" : audioPath };
+                        Playlist.findOne({id: req.session.userid}, function(err1, output1) {
+                            if ( !output1 ) {
+                                console.log(output1);
+                                var pl = new Playlist();
+                                pl.id = req.session.userid;
+                                pl.list = new Array();
+                                pl.list[0] = data;
+                                pl.save(function(err2) {});
+                            }
+                            else
+                                Playlist.updateOne({id: req.session.userid}, {$push: {list: data}}, function(err2, output2) {});
+                        });
+                    }
                 }
                 sub.image = imagePath;
                 sub.audio = audioPath;

@@ -1,0 +1,35 @@
+doctype html
+head
+    title= title
+    meta(name='viewport', content='width=devide-width', initial-scale=1)
+    link(href="https://fonts.googleapis.com/css?family=Ubuntu", rel="stylesheet")
+    link(rel='stylesheet', href='/stylesheets/info.css')
+body
+    div#content
+        br
+        span(style="font-size:20px;")
+            b(style="font-family:Ubuntu; font-size:25px;") #{playlist.id}
+            span  님의 재생목록
+            span(style="float:right;")
+                img(src="images/profileimages/" + playlist.id, width="70", height="70")
+            hr
+            br
+            br
+            br
+
+            table(border="0")
+                each val in playlist.list
+                    tr
+                        td #{val.title}
+                        td
+                            audio(controls)
+                                source(src= val.path)
+
+            br
+            br
+            
+            br
+            br
+            button(onclick="window.open('about:blank', '_self').close()") 닫기
+            br
+            br
