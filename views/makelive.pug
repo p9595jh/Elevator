@@ -1,0 +1,40 @@
+doctype html
+head
+    title= title
+    meta(name='viewport', content='width=devide-width', initial-scale=1)
+    link(rel='stylesheet', href='/stylesheets/info.css')
+body
+    div#content
+        br
+        span(style="font-size:20px;")
+            b= sub.id 
+            span  라이브 생성
+            hr
+            br
+            br
+
+            form(method="POST", action="./apply", style="text-align:center")
+                input(type="text", name="title", placeholder="제목", style="width:70%; height:35px;")
+                br
+                br
+                input(type="text", name="date", placeholder="날짜", style="width:70%; height:35px;")
+                br
+                br
+                input(type="number", name="location", placeholder="장소", style="width:70%; height:35px;")
+                br
+                br
+                input(type="number", name="num", placeholder="참여인원", style="width:70%; height:35px;")
+                br
+                br
+                textarea(name="introduction", placeholder="소개", style="width:70%; height:50px;")
+                br
+                br
+                input(type="submit", value="생성", style="width:70%; height:35px;")
+            br
+            br
+            
+            br
+            br
+            button(onclick="window.open('about:blank', '_self').close()") 닫기
+            br
+            br

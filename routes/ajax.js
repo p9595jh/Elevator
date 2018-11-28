@@ -202,5 +202,33 @@ router.post('/find', function(req, res) {
         else console.log("???????????");
     });
 });
+router.post('/reserve', function(req, res) {
+    console.log('뤼쒸-빙');
+    console.log(req.body);
+    var subid = req.body.subid;
+    var userid = req.body.userid;
+
+    var User = require('./user.js');
+    var Sub = require('./sub.js');
+    Sub.findOne({id: subid}, function(err, sub) {
+        if ( liveticket.length == liveviewer.length ) {
+            var responseData = { "result" : "남는 자리가 없습니다" };
+            res.json(responseData);
+            return;
+        }
+        for (var i=0; i<sub.liveviewer.length; i++) {
+            if ( sub.liveviewer[i].id == userid ) {
+                var responseData = { "result" : "이미 신청하셨습니다" };
+                res.json(responseData);
+                return;
+            }
+        }
+        var key = sub.liveticket[sub.liveviewer.length];
+        Sub.updateOne({id: subid}, {$push: {liveviewer: {id: userid, ticket: key}}}, function(err, output) {});
+        User.updateOne({id: userid}, {live: key}, function(err, output) {});
+        var responseData = { "result" : "done" };
+        res.json(responseData);
+    });
+});
 
 module.exports = router;

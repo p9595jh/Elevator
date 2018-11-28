@@ -1,0 +1,35 @@
+doctype html
+head
+    title= title
+    meta(name='viewport', content='width=devide-width', initial-scale=1)
+    link(rel='stylesheet', href='/stylesheets/info.css')
+    script(src='/javascripts/javascript.js')
+body
+    div#content
+        br
+        span(style="font-size:20px;")
+            b= sub.id 
+            span  라이브
+            hr
+            br
+
+            - if ( sub.livetitle == '' )
+                h3 현재 라이브가 없습니다.
+            - else
+                p #{sub.livetitle}
+                p 인원: #{sub.liveviewer.length} / #{sub.liveticket.length}명
+                p 일시: #{sub.livedate}
+                p 장소: #{sub.livelocation}
+                pre.contentView #{sub.liveintro}
+                br
+                button(onclick="reserve123('"+sub.id+"','"+user.id+"');", id='reservelive') 신청
+                p#pppp
+
+            br
+            br
+            
+            br
+            br
+            button(onclick="window.open('about:blank', '_self').close()") 닫기
+            br
+            br

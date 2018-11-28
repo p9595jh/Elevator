@@ -36,3 +36,10 @@ hr {
 button {
 	cursor: pointer;
 }
+
+.contentView {
+	font-size: 16px;
+	font-family: consolas;
+	white-space: pre-wrap;
+	/* vertical-align: top; */
+}

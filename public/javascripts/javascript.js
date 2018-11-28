@@ -6,6 +6,14 @@ function playlist(userid) {
     window.open("./openplaylist?userid="+userid, "PLAYLIST", "width=500, height=600, left=300, top=100, scrollbars=yes, toolbars=no, location=no");
 }
 
+function makeLive(userid) {
+    window.open("./live/make?userid="+userid, "LIVE", "width=500, height=600, left=300, top=100, scrollbars=yes, toolbars=no, location=no");
+}
+
+function viewLive(userid) {
+    window.open("./live/view?userid="+userid, "LIVE", "width=500, height=600, left=300, top=100, scrollbars=yes, toolbars=no, location=no");
+}
+
 function confirmRemove() {
     return confirm("정말 삭제하시겠습니까?");
 }
@@ -165,5 +173,26 @@ function find(type) {
         var result = JSON.parse(xhr.responseText);
         var text = document.getElementById(type + "result");
         text.innerHTML = result.result;
+    });
+}
+
+function reserve123(subid, userid) {
+    var data = { 'subid' : subid, 'userid' : userid };
+    console.log('????');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '../ajax/reserve');
+    xhr.setRequestHeader('Content-type', "application/json");
+    xhr.send(data);
+
+    xhr.addEventListener('load', function() {
+        var result = JSON.parse(xhr.responseText);
+        if ( result.result == 'done' ) {
+            document.getElementById('reservelive').style.display = "none";
+            document.getElementById('pppp').innerHTML = "신청 완료";
+        }
+        else {
+            alert(result.result);
+        }
     });
 }

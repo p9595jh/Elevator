@@ -34,6 +34,7 @@ var handleNoticeRouter = require('./routes/handleNotice');
 var adminRouter = require('./routes/admin');
 var subadminRouter = require('./routes/subadmin');
 var findRouter = require('./routes/find');
+var liveRouter = require('./routes/live');
 
 var app = express();
 
@@ -85,6 +86,7 @@ app.use('/handleNotice', handleNoticeRouter);
 app.use('/admin', adminRouter);
 app.use('/subadmin', subadminRouter);
 app.use('/find', findRouter);
+app.use('/live', liveRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

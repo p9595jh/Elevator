@@ -27,6 +27,7 @@ router.post('/', function(req, res) {
         user.stop = false;
         user.boardRequest = 0;
         user.subscribes = new Array();
+        user.live = '';
         
         if ( users.length !== 0 ) {
             res.render('./join', {
