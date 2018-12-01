@@ -18,9 +18,9 @@ function confirmRemove() {
     return confirm("정말 삭제하시겠습니까?");
 }
 
-function recommend(boardtype, _id, id, count) {
+function recommend(boardtype, num, id, count) {
     if ( boardtype == 'music' ) count = document.getElementById("grade").value;
-    var data = { 'boardtype' : boardtype, '_id' : _id, 'id' : id, 'count' : count };
+    var data = { 'boardtype' : boardtype, 'num' : num, 'id' : id, 'count' : count };
     data = JSON.stringify(data);
 
     var xhr = new XMLHttpRequest();
@@ -181,7 +181,7 @@ function reserve123(subid, userid) {
         alert('라이브 관계자는 신청하실 수 없습니다');
         return;
     }
-    
+
     var data = { 'subid' : subid, 'userid' : userid };
     data = JSON.stringify(data);
 

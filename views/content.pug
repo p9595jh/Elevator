@@ -52,9 +52,9 @@ block contentX
                     option(value="3") ★★★
                     option(value="2") ★★
                     option(value="1") ★
-                button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 평가
+                button(onclick="recommend('" + listurl + "','" + content.num + "','" + user.id + "',1)", id='recommendbtn') 평가
             - else if ( user.id )
-                button(onclick="recommend('" + listurl + "','" + content._id + "','" + user.id + "',1)", id='recommendbtn') 추천 #{content.recommend}
+                button(onclick="recommend('" + listurl + "','" + content.num + "','" + user.id + "',1)", id='recommendbtn') 추천 #{content.recommend}
         br
         hr
 

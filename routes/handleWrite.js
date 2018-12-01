@@ -218,4 +218,213 @@ router.post('/', function(req, res) {
     });
 });
 
+//=================================================== for mobile
+router.post('/insert', function(req, res) {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+        var boardtype = fields.boardtype;
+
+        // to free board
+        if ( boardtype == "free" ) {
+            FreeBoard.find({}).sort({num:-1}).exec(function(err, frees) {
+                if ( err ) {
+                    return res.json({
+                        msg: 'error'
+                    });
+                }
+
+                var free = new FreeBoard();
+                free.id = fields.id;
+                free.nickname = fields.nickname;
+                free.title = fields.title;
+                free.content = fields.content;
+                free.writedate = fields.writedate;
+                
+                free.hit = 0;
+                free.recommend = 0;
+                if ( frees.length == 0 ) free.num = 0;
+                else free.num = frees[0].num + 1;
+
+                var imagePath = '';
+                var audioPath = '';
+                if ( files.image.name != '' ) {
+                    console.log(files.image.type);
+                    var ext = files.image.name.substring(files.image.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.jpg' || ext == '.jpeg' || ext == '.png' || ext == '.gif' ) {
+                        imagePath = 'images/contentimages/' + 'free_' + free.num + '_' + req.session.userid + ext;
+                        fs.copy(files.image.path, 'public/' + imagePath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                if ( files.audio.name != '' ) {
+                    var ext = files.audio.name.substring(files.audio.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.mp3' || ext == '.ogg' || ext == '.wav' ) {
+                        audioPath = 'audios/contentaudios/' + 'free_' + free.num + '_' + req.session.userid + ext;
+                        fs.copy(files.audio.path, 'public/' + audioPath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                free.image = imagePath;
+                free.audio = audioPath;
+
+                free.save(function(err) {
+                    if ( err ) {
+                        return res.json({
+                            msg: 'error'
+                        });
+                    }
+                    else {
+                        return res.json({
+                            msg: 'success'
+                        });
+                    }
+                });
+            });
+        }
+        // to music board
+        else if ( boardtype == "music" ) {
+            if ( files.audio.name == '' ) {
+                console.log("No music file");
+                res.redirect('./music');
+                return;
+            }
+
+            MusicClass.find({}).sort({num:-1}).exec(function(err, musics) {
+                if ( err ) {
+                    return res.json({
+                        msg: 'error'
+                    });
+                }
+
+                var music = new MusicClass();
+                music.id = fields.id;
+                music.nickname = fields.nickname;
+                music.title = fields.title;
+                music.content = fields.content;
+                music.grade = 0;
+                music.gradeby = new Array();
+                music.boardRequest = false;
+                
+                music.writedate = fields.writedate;
+                music.hit = 0;
+                music.grade = 0;
+                if ( musics.length == 0 ) music.num = 0;
+                else music.num = musics[0].num + 1;
+
+                var imagePath = '';
+                var audioPath = '';
+                if ( files.image.name != '' ) {
+                    var ext = files.image.name.substring(files.image.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.jpg' || ext == '.jpeg' || ext == '.png' || ext == '.gif' ) {
+                        imagePath = 'images/contentimages/' + 'music_' + music.num + '_' + req.session.userid + ext;
+                        fs.copy(files.image.path, 'public/' + imagePath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                if ( files.audio.name != '' ) {
+                    var ext = files.audio.name.substring(files.audio.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.mp3' || ext == '.ogg' || ext == '.wav' ) {
+                        audioPath = 'audios/contentaudios/' + 'music_' + music.num + '_' + req.session.userid + ext;
+                        fs.copy(files.audio.path, 'public/' + audioPath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                music.image = imagePath;
+                music.audio = audioPath;
+
+                music.save(function(err) {
+                    if ( err ) {
+                        return res.json({
+                            msg: 'error'
+                        });
+                    }
+                    else {
+                        return res.json({
+                            msg: 'success'
+                        });
+                    }
+                });
+            });
+        }
+        // to sub board
+        else {
+            SubContent.find({}).sort({num:-1}).exec(function(err, subs) {
+                if ( err ) {
+                    return res.json({
+                        msg: 'error'
+                    });
+                }
+
+                var sub = new SubContent();
+                sub.type = boardtype;
+                sub.id = fields.id;
+                sub.nickname = fields.nickname;
+                sub.title = fields.title;
+                sub.content = fields.content;
+                sub.writedate = fields.writedate;
+                sub.hit = 0;
+                sub.recommend = 0;
+                if ( subs.length == 0 ) sub.num = 0;
+                else sub.num = subs[0].num + 1;
+
+                var imagePath = '';
+                var audioPath = '';
+                if ( files.image.name != '' ) {
+                    var ext = files.image.name.substring(files.image.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.jpg' || ext == '.jpeg' || ext == '.png' || ext == '.gif' ) {
+                        imagePath = 'images/contentimages/' + boardtype + '_' + sub.num + '_' + req.session.userid + ext;
+                        fs.copy(files.image.path, 'public/' + imagePath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                }
+                if ( files.audio.name != '' ) {
+                    var ext = files.audio.name.substring(files.audio.name.lastIndexOf('.')).toLowerCase();
+                    if ( ext == '.mp3' || ext == '.ogg' || ext == '.wav' ) {
+                        audioPath = 'audios/contentaudios/' + boardtype + '_' + sub.num + '_' + req.session.userid + ext;
+                        fs.copy(files.audio.path, 'public/' + audioPath, function(err0) {
+                            if ( err0 ) console.err(err0);
+                        });
+                    }
+                    if ( req.session.userid == boardtype ) {
+                        var Playlist = require('./playlist.js');
+                        var data = { "title" : sub.title, "path" : audioPath };
+                        Playlist.findOne({id: req.session.userid}, function(err1, output1) {
+                            if ( !output1 ) {
+                                var pl = new Playlist();
+                                pl.id = req.session.userid;
+                                pl.list = new Array();
+                                pl.list[0] = data;
+                                pl.save(function(err2) {});
+                            }
+                            else
+                                Playlist.updateOne({id: req.session.userid}, {$push: {list: data}}, function(err2, output2) {});
+                        });
+                    }
+                }
+                sub.image = imagePath;
+                sub.audio = audioPath;
+
+                sub.save(function(err) {
+                    if ( err ) {
+                        return res.json({
+                            msg: 'error'
+                        });
+                    }
+                    else {
+                        return res.json({
+                            msg: 'success'
+                        });
+                    }
+                });
+            });
+        }
+
+    });
+});
+
 module.exports = router;
