@@ -203,15 +203,13 @@ router.post('/find', function(req, res) {
     });
 });
 router.post('/reserve', function(req, res) {
-    console.log('뤼쒸-빙');
-    console.log(req.body);
     var subid = req.body.subid;
     var userid = req.body.userid;
 
     var User = require('./user.js');
     var Sub = require('./sub.js');
     Sub.findOne({id: subid}, function(err, sub) {
-        if ( liveticket.length == liveviewer.length ) {
+        if ( sub.liveticket.length == sub.liveviewer.length ) {
             var responseData = { "result" : "남는 자리가 없습니다" };
             res.json(responseData);
             return;

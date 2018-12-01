@@ -177,8 +177,13 @@ function find(type) {
 }
 
 function reserve123(subid, userid) {
+    if ( subid == userid ) {
+        alert('라이브 관계자는 신청하실 수 없습니다');
+        return;
+    }
+    
     var data = { 'subid' : subid, 'userid' : userid };
-    console.log('????');
+    data = JSON.stringify(data);
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '../ajax/reserve');
