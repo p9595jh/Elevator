@@ -50,23 +50,29 @@ block contentX
     div.box
         a.board(href="./free") ㆍ자유게시판
         hr
-        div.startdiv Test
-            //- each val in free
-            //-     span #{val.title}
-            //-     br
+        div.startdiv
+            each val in free
+                a.link(href="./content?type=free&num="+val.num) #{val.title}
+                br
     br
     br
 
     div.box
         a.board(href="./suggest") ㆍ음악게시판
         hr
-        div.startdiv Test2
+        div.startdiv
+            each val in music
+                a.link(href="./content?type=music&num="+val.num) #{val.title}
+                br
     br
     br
     
     div.box
         a.board(href="./music") ㆍ건의게시판
         hr
-        div.startdiv Test2
+        div.startdiv
+            each val in suggest
+                a.link(href="./suggest#"+val.num) #{val.comment}
+                br
     br
     br

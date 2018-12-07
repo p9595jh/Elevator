@@ -19,7 +19,7 @@ block contentX
         
         table.tb2
             each val in content
-                tr(style="height:110px; vertical-align:top;")
+                tr(style="height:110px; vertical-align:top;" id= val.num)
                     td(style="text-align:center; vertical-align:middle; width:110px; border-right:1px solid rgb(0,91,159)")
                         img(src="images/profileimages/" + val.id, width="70", height="70")
                     td

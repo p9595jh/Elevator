@@ -28,10 +28,7 @@ router.post('/', function(req, res) {
             req.session.stop = users.stop;
             req.session.joindate = users.joindate;
             req.session.boardRequest = users.boardRequest;
-            res.render('./start', {
-                title: "Start",
-                user: users
-            });
+            res.redirect('./start');
         }
     });
 });

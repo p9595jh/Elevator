@@ -53,16 +53,7 @@ router.post('/', function(req, res) {
                         return;
                     }
                     req.session.nickname = nickname;
-                    res.render('./start', {
-                        title: 'Start',
-                        user: {
-                            id: req.session.userid,
-                            nickname: req.session.nickname,
-                            stop: req.session.stop,
-                            joindate: req.session.joindate,
-                            boardRequest: req.session.boardRequest
-                        }
-                    });
+                    res.redirect('./start');
                 });
             }
         });
